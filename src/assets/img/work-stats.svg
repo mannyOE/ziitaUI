@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="392px" height="296px" viewBox="0 0 392 296" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="187.626012" height="266.58946" rx="5"></rect>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="31.772162%" id="linearGradient-3">
+            <stop stop-color="#DE661A" offset="0%"></stop>
+            <stop stop-color="#F57F23" offset="31.772162%"></stop>
+            <stop stop-color="#FBD249" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FBD249" offset="0%"></stop>
+            <stop stop-color="#F6AB28" offset="88.430447%"></stop>
+            <stop stop-color="#F5A623" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-5" cx="43.5828091" cy="43.5828091" r="43.5828091"></circle>
+        <circle id="path-7" cx="43.5828091" cy="43.5828091" r="43.5828091"></circle>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-9">
+            <stop stop-color="#FF8A2A" offset="0%"></stop>
+            <stop stop-color="#FE5113" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-10">
+            <stop stop-color="#F3B330" offset="0%"></stop>
+            <stop stop-color="#E27C16" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-811.000000, -1677.000000)">
+            <g id="Group-4" transform="translate(811.000000, 1677.000000)">
+                <g id="Group" transform="translate(66.000000, 0.000000)">
+                    <g id="Rectangle">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#E0E0E0" xlink:href="#path-1"></use>
+                        <rect fill="#F2F2F2" mask="url(#mask-2)" x="5.13888045" y="0" width="187.626012" height="266.58946" rx="5"></rect>
+                    </g>
+                    <rect id="Rectangle-2" fill="#D4DA8F" x="18.8425616" y="26.5508823" width="150.772277" height="6.99737529" rx="3.49868765"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="119.05073" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="129.328491" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="138.749772" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="161.874734" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="171.296015" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="182.430256" width="150.772277" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#D8D8D8" x="18.8425616" y="204.698738" width="74.9704443" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#54B89C" transform="translate(139.338602, 231.164307) scale(1, -1) translate(-139.338602, -231.164307) " x="108.772969" y="228.68018" width="61.1312653" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#54B89C" transform="translate(139.338602, 240.585587) scale(1, -1) translate(-139.338602, -240.585587) " x="108.772969" y="238.101461" width="61.1312653" height="4.96825356" rx="2.48412678"></rect>
+                    <rect id="Rectangle-2" fill="#7FD586" x="18.8425616" y="45.3934439" width="101.267404" height="54.45507" rx="4"></rect>
+                    <polygon id="Rectangle-2" fill="#5BCA64" points="61.8112636 81.4492477 101.587403 63.3795255 120.109965 99.5189699 18.8425616 99.5189699"></polygon>
+                    <polygon id="Rectangle-2" fill="#46C150" points="56.7749167 81.4492477 101.587403 63.3795255 115.073618 99.5189699 18.8425616 99.5189699"></polygon>
+                    <polygon id="Rectangle-2" fill="#79E582" points="48.3133384 65.9489657 76.6139827 90.3000994 120.109965 99.5457349 18.8425616 99.5457349"></polygon>
+                    <polygon id="Rectangle-2" fill="#5CCA66" points="48.3133384 65.9489657 72.9823065 93.1622818 120.109965 99.5457349 18.8425616 99.5457349"></polygon>
+                    <rect id="Rectangle-2" fill="#D87070" x="125.046091" y="45.3934439" width="43.9440149" height="54.45507" rx="4"></rect>
+                    <circle id="Oval" fill="#439A2E" cx="101.993896" cy="56.6004523" r="3.49868765"></circle>
+                </g>
+                <g id="Group-3" transform="translate(224.487399, 124.949219)">
+                    <rect id="Rectangle-4" fill="#E39618" x="18.4581653" y="38.4545111" width="23.0727067" height="92.2908266"></rect>
+                    <rect id="Rectangle-4" fill="#F5A623" x="22.6400934" y="38.4545111" width="18.8907786" height="92.2908266"></rect>
+                    <rect id="Rectangle-4" fill="#A4D86F" x="46.1454133" y="0" width="23.0727067" height="131.612066"></rect>
+                    <rect id="Rectangle-4" fill="#B8E986" x="50.3273414" y="0" width="18.8907786" height="131.612066"></rect>
+                    <rect id="Rectangle-4" fill="#AB061A" x="73.8326613" y="78.4472026" width="23.0727067" height="51.9871943"></rect>
+                    <rect id="Rectangle-4" fill="#D0021B" x="78.0145894" y="78.4472026" width="18.8907786" height="51.9871943"></rect>
+                    <rect id="Rectangle-4" fill="#387CCC" x="101.519909" y="59.9890373" width="23.0727067" height="71.1017902"></rect>
+                    <rect id="Rectangle-4" fill="#4A90E2" x="105.701837" y="59.9890373" width="18.8907786" height="71.1017902"></rect>
+                    <rect id="Rectangle-5" fill="#BDBDBD" x="0" y="130.745338" width="141.512601" height="12.0155326"></rect>
+                    <rect id="Rectangle-5" fill="#D8D8D8" x="7.76450656" y="130.745338" width="133.748094" height="12.0155326"></rect>
+                </g>
+                <rect id="Rectangle-13" fill="#B3AD3F" x="0" y="267" width="392" height="28.9921875"></rect>
+                <rect id="Rectangle-13" fill="#C7BF2C" x="29.083871" y="267" width="362.916129" height="28.9921875"></rect>
+                <g id="Rectangle-12-+-Rectangle-12-Mask" transform="translate(87.580570, 222.580570) rotate(22.000000) translate(-87.580570, -222.580570) translate(42.580570, 177.580570)">
+                    <circle id="Mask" fill="url(#linearGradient-3)" cx="46.0040762" cy="46.0040762" r="43.5828091"></circle>
+                    <mask id="mask-6" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                    <use id="Mask" fill="url(#linearGradient-4)" xlink:href="#path-5"></use>
+                    <mask id="mask-8" fill="white">
+                        <use xlink:href="#path-7"></use>
+                    </mask>
+                    <use id="Mask" fill="url(#linearGradient-4)" xlink:href="#path-7"></use>
+                    <polygon id="Rectangle-12" fill="url(#linearGradient-9)" mask="url(#mask-8)" points="44.1573871 43.5828091 86.1252299 96.3092121 14.527603 105.573396"></polygon>
+                    <polygon id="Rectangle-12" fill="url(#linearGradient-10)" mask="url(#mask-8)" points="44.1573871 43.5828091 13.8513507 106.78403 -25.7827121 28.858951"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
