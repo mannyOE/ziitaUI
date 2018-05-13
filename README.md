@@ -1,6 +1,6 @@
-# ziita
+# zeedas
 
-> a crm tool
+> A projects for managing projects
 
 ## Build Setup
 
@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# jdhsdkjsd hsjkdhe9we w serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080
 npm run dev
 
 # build for production with minification

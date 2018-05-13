@@ -96,6 +96,9 @@
 	                        </div>
 									</div>
 	            </div>
+				<Spinner :show="showLoading" />
+			<Error :show="showError" :error="errorMsg" @close="showError = false"/>
+			<Success :show="showSuccess" @close="showSuccess = false"/>
 	        </div>
 	    </div>
 </template>
@@ -113,7 +116,9 @@ export default {
 		return {
 			username: '',
 			password:'',
-			show: false,
+			showLoading: false,
+			showError: false,
+			showSuccess: false,
 			label: 'Loading ...',
 		}
 	},
@@ -122,16 +127,47 @@ export default {
 				'login',
 		]),
 		loginStore(){
-			this.show = true;
+			this.showLoading = true;
 			this.login(
 				{
 					username:this.username,
 					password: this.password
 				}
 			).then((result)=>{
-				alert(result.data.name);
+				this.showLoading = false;
+					if(result.status == true){
+						if(this.reportLoader(1)){
+							switch (result.type) {
+								case 1:
+									this.$router.push({name:'superadmin'});
+									break;
+								case 2: 
+									this.$router.push({name:'staffmember'});
+								default:
+									this.$router.push({name:'client'});
+									break;
+							}
+						}
+					}else{
+						this.reportLoader(0, result.message)
+					}
 			});
-		}
+		},
+		reportLoader(rep, msg){
+				var self = this;
+				if(rep == 0){
+					this.errorMsg = msg;
+					this.showError = true;
+					window.setTimeout(function(){self.showError= false;},3000)
+				}
+				if(rep == 1){
+					this.showSuccess = true;
+					window.setTimeout(function(){
+						self.showSuccess = false;
+						return true;
+						},1000)
+				}
+			},
 	}
 }
 </script>

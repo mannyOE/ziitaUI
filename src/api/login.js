@@ -1,5 +1,7 @@
-/* eslint-disable*/
 import { blackAxios } from '@/config';
+import { authErrMsg, isAuthErr, isBadReq, isVerificationErr, print } from '@/helpers';
+import { getById } from './generic';
+
 // const blackAxios = config.blackAxios
 
 export default {
@@ -10,18 +12,33 @@ export default {
     confirm_email: 'confirm_email',
     resUser: 'session',
   },
+
+
   login (dargs) {
     return blackAxios.post(this.resource.res, {
-        username: dargs.username,
-        password: dargs.password,
+        Email: dargs.Email,
+        Password: dargs.Password,
       })
       .then(function (response) {
 
         //print('Login Completed: ', response);
+        
+        const responseData = response.data;
 
+        let result = {
+          data: responseData,
+          userType: responseData.type,
+          token: responseData.token,
+        };
 
+        // Setup to check for failure in status message for now
+        if (response.data.status === false) {
+          result.error = response.data.messasge;
+          result.autherror = true;
+          return result;
+        }
 
-        return response;
+        return result;
       })
       .catch(function (error) {
         let result = {};
@@ -54,6 +71,9 @@ export default {
     .then(function (response) {
 
       print('Sent Email Details: ', response);
+
+
+
       return response;
     })
     .catch(function (error) {
@@ -77,6 +97,7 @@ export default {
       } else {
         results.message = errMsg;
       }
+
       return results;
   })
 },
@@ -89,31 +110,10 @@ confirmPassword (dargs) {
   return blackAxios.post(this.resource.confirmPassword, dargs)
   .then(function (response) {
 
-    return response;
-  })
-  .catch(function (error) {
-    return error;
-  });
-},
-resend_confirmation (dargs) {
-  /**
-   * Retrieve all devs and pms on zeedas without team
-   */
-  return blackAxios.post(this.resource.resend_confirmation, dargs)
-  .then(function (response) {
-    return response;
-  })
-  .catch(function (error) {
-    return error;
-  });
-},
-confirm_email (dargs) {
-  /**
-   * Retrieve all devs and pms on zeedas without team
-   */
-  return blackAxios.post(this.resource.confirm_email, dargs)
-  .then(function (response) {
-    return response;
+    return getById.success({
+      response: response,
+      resource: '',
+    });
   })
   .catch(function (error) {
     return getById.error({
@@ -122,5 +122,42 @@ confirm_email (dargs) {
     });
   });
 },
+resend_confirmation (dargs) {
+  /**
+   * Retrieve all devs and pms on zeedas without team
+   */
+  return blackAxios.post(this.resource.resend_confirmation, dargs)
+  .then(function (response) {
+    return getById.success({
+      response: response,
+      resource: '',
+    });
+  })
+  .catch(function (error) {
+    return getById.error({
+      error: error,
+      defaultmsg: ''
+    });
+  });
+},
+confirm_email (dargs) {
+  /**
+   * Retrieve all devs and pms on zeedas without team
+   */
+  return blackAxios.post(this.resource.confirm_email, dargs)
+  .then(function (response) {
+    return getById.success({
+      response: response,
+      resource: '',
+    });
+  })
+  .catch(function (error) {
+    return getById.error({
+      error: error,
+      defaultmsg: ''
+    });
+  });
+},
+
 
 }

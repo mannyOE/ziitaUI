@@ -8,16 +8,18 @@ import Signup from '@/app/site/signup'
 import Login from '@/app/site/login'
 import AfterSignup from '@/app/site/aftersignup'
 import RecoverPassword from '@/app/site/recover'
+import dashboardLayout from '@/app/shared/layouts/dashboardLayout'
+import clients from '@/app/dash/clients/home'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
       name: 'home',
-      redirect: '/login',
+      redirect: '/main',
       component: homeLayout,
       children: [
         {
@@ -44,8 +46,47 @@ export default new Router({
           path: '/recover-password',
           name: 'recovery',
           component: RecoverPassword
+        },
+        {
+          // superadmin routes
+          path: '/user/superadmin',
+          name: 'superadmin',
+          component: 'dashboardLayout',
+          redirect: '/user/superadmin/clients',
+          children: [
+            {
+              path: '/clients',
+              name: 'clients',
+              component: 'clients'
+
+            }
+          ]
         }
       ]
     }
   ]
 })
+
+
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     // this route requires authentiication, check if logged in
+//     // if not, redirect to login page.
+//     let fmsg = 'Please login to access this page'
+//     if (!store.state.userCredentials.sub.isAuth) {
+//       store.dispatch('auth/setRedirectError', fmsg, {root: true}).then(function () {
+//       });
+//       next({
+//         name: 'login',
+//         query: { redirectUrl: to.fullPath }
+//       })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next() // make sure to always call next()!
+//   }
+// })
+
+export default router

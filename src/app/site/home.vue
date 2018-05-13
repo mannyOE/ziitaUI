@@ -1,14 +1,15 @@
 <template id="">
       <div class="wrapper">
+          <Spinner :show='showLoading' />
           <div class="page-header clear-filter" filter-color="orange">
               <div class="page-header-image" data-parallax="true"
               style="background-image: url('/static/img/header.jpg'); z-index: 0;">
               </div>
               <div class="container">
                   <div class="content-center brand">
-                      <img class="n-logo" src="/static/img/now-logo.png" alt="">
-                      <h1 class="h1-seo">Central Station</h1>
-                      <h3>A social advertisement tool, perfect for your business.</h3>
+                      <img class="n-logo" src="/static/ziita2.png" alt="">
+                      <h1 class="h1-seo">Ziita Central</h1>
+                      <h3>A CRM Tool, perfect for your business.</h3>
                   </div>
 
               </div>
@@ -1041,3 +1042,14 @@
 
 
 </template>
+
+<script>
+export default {
+  data(){
+      return {
+          showLoading: true,
+      }
+  }
+}
+</script>
+
