@@ -1,29 +1,49 @@
 <template>
-  <div id="app">
-    <body class="index-page sidebar-collapse">
-      <router-view/>
-    </body>
+  <div id="App">
+    <!-- <BaseHeader id="header" /> -->
+    <router-view></router-view>
+      <AuthenticatedField :pm="true">
+     <ChatModal :show="true" style="display:unset !important"
+            :project_Id="$route.params.id"
+            >
+        </ChatModal>
+      </AuthenticatedField>
   </div>
 </template>
 
 <script>
- /* eslint-disable */
+// import $ from 'jquery';
+// window.jQuery = $;
+import BaseHeader from '@/app/shared/BaseHeader';
+import ChatModal from '@/app/shared/chatWidget/chatWidget';
+import style from '@/assets/css/introjs.min.css'
+import VueSocketio from 'vue-socket.io';
+import { mapGetters, mapActions } from "vuex";
+
+
+//introJs.introJs().start();
+
+// require('bootstrap');
 export default {
-  name: 'app',
-  mounted () {
+  name: 'App',
+
+
+  components: {
+    BaseHeader,
+     ChatModal
+  },mounted(){
+     // alert()
+
+  }, computed: {
+    ...mapGetters('userCredentials', [
+        'user',
+    ]),
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /*text-align: center;*/
-  color: #2c3e50;
-
-
-}
-
+<style type="text/css">
+  button{
+    font-family: "Montserrat" !important;
+  }
 </style>
+

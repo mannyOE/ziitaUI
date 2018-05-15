@@ -50,6 +50,13 @@ const actions = {
           // User is set
         });
 
+        // set Blocked state
+        dispatch('userCredentials/setBlocked', result.data.blocked, {root: true})
+        .then(function (status) {
+          // User is set
+        });
+
+
         // Get data from response
         const token = result.token;
         const userType = result.userType;

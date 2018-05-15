@@ -12,6 +12,9 @@ export default {
     reject: 'module/reject/',
     folder: 'project/repository_folder',
        get_link:'terminal/get_link/',
+       get_dev_repository:'project/developer_repository',
+       read_repository:'project/read_file',
+       saveMethod:'modules/methods/'
   },
 
   getModules (dargs) {
@@ -75,6 +78,42 @@ export default {
         });
       });
   },
+    getDevRepository(dargs) {
+    /**
+     * Get all modules in a project
+     */
+    return blackAxios.post(this.resource.get_dev_repository+"/"+dargs.module_Id, dargs, {
+      'headers': { 'x-access-token': dargs.token }
+    })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        return getAll.error({
+          error: error,
+          resource: ''
+        });
+      });
+  },
+
+    readRepository(dargs) {
+    /**
+     * Get all modules in a project
+     */
+    return blackAxios.post(this.resource.read_repository+"/"+dargs.module_Id, dargs, {
+      'headers': { 'x-access-token': dargs.token }
+    })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        return getAll.error({
+          error: error,
+          resource: ''
+        });
+      });
+  },
+
 
 
 
@@ -153,7 +192,7 @@ export default {
      * For ??
      */
     return blackAxios.get(this.resource.delete + dargs.id, {
-      'headers': { 'x-access-token': dargs.token }
+      'headers': { 'x-access-token': dargs.token, }
     })
       .then(function (response) {
         return gDelete.success({
@@ -217,4 +256,27 @@ export default {
         });
       });
   },
+    saveMethods (dargs) {
+    /**
+     * Create a new module
+     * For project manager ??
+     */
+     //
+    return blackAxios.post(this.resource.saveMethod+dargs.Id, dargs,
+    {
+      'headers': { 'x-access-token': dargs.token }
+    })
+      .then(function (response) {
+        return add.success({
+          response: response,
+          resource: ''
+        });
+      })
+      .catch(function (error) {
+        return add.error({
+          error: error,
+          defaultmsg: ''
+        });
+      });
+  }
 }

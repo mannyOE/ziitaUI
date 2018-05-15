@@ -19,7 +19,8 @@ import wallet from './modules/wallet';
 import forgotPassword from './forgotPassword';
 import feedback from './modules/feedback/feedback'
 import roles from './modules/roles/index'
-import Admin from './modules/roles/adminRoles'
+import qualityAssurance from './modules/qa/qualityAssurance'
+import ea from './modules/modules/ea/ea'
 // import socket from './modules/chat/socket';
 
 // Modules with persistent states
@@ -35,7 +36,7 @@ export default new Vuex.Store({
       key: 'dmsState',
       getState: key => Cookies.getJSON(key),
       setState: (key, state) => Cookies.set(key, state, { expires: 14 }),
-      paths: ['userCredentials', 'persistentState']
+      paths: ['userCredentials', 'persistentState','team']
     })
   ],
   actions,
@@ -56,7 +57,8 @@ export default new Vuex.Store({
     forgotPassword,
     feedback,
     roles,
-    Admin,
+    qualityAssurance,
+    ea
     // socket
   }
 });

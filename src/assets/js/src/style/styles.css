@@ -1,0 +1,188 @@
+/*@import "media.css";*/
+/*@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);*/
+@import "fonts.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Roboto-Regular', sans-serif;
+  height: 100vh;
+}
+
+#stwidgxx988exxxxt6109 {
+  /*border: 1px solid black;*/
+  width: 300px;
+  height: 432px;
+  position: absolute;
+  right: 2%;
+  bottom: 13%;
+  /*padding: 5px;*/
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.primo {
+  width: 100%;
+  margin-top: 13px;
+  /*outline: 1px solid blue;*/
+}
+
+.toggle {
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
+  position: fixed;
+  bottom: 5px;
+  right: 13px;
+  box-shadow: 0 4px 21px rgba(0, 0, 0, 0.2);
+}
+
+.open-toggle {
+  background: url("../img/msg.png") center no-repeat;
+  background-size: 50%;
+  background-color: #564BBE;
+  transition: opacity .08s linear,-webkit-transform .32s linear;
+  transition: transform .32s linear,opacity .08s linear;
+  transition: transform .32s linear,opacity .08s linear,-webkit-transform .32s linear;
+  opacity: 1;
+  /*-webkit-transform: rotate(0deg) scale(1);
+  -ms-transform: rotate(0deg) scale(1);
+  transform: rotate(0deg) scale(1);*/
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.close-toggle {
+  background: url("../img/close-icon.png") center no-repeat;
+  background-size: 14px;
+  background-color: #564BBE;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  opacity: 1;
+  transition: opacity .08s linear,-webkit-transform .32s linear;
+  transition: transform .32s linear,opacity .08s linear;
+  transition: transform .32s linear,opacity .08s linear,-webkit-transform .32s linear;
+}
+
+.collapse {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.content {
+  width: 300px;
+  height: 432px;
+  margin: auto;
+  /*transition: height 35s;*/
+  box-shadow: 0 4px 21px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  box-sizing: border-box;
+  /*overflow: hidden;*/
+  /*outline: 1px solid blue;*/
+}
+
+.content .header {
+  display: block;
+  width: 100%;
+  height: 55px;
+  padding: 5px;
+  box-sizing: border-box;
+  /*outline: 1px solid black;*/
+  /*text-align: center;*/
+  overflow: hidden;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: 11.237px;
+  border-radius: .25rem;
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+
+
+.content .header .viewImg {
+  display: inline-block;
+  float: right;
+  vertical-align: bottom;
+  color: #fff;
+  background-color: #4F586E;
+  border-color: #4F586E;
+}
+
+.content .header .viewImg:hover
+{
+  color: #fff;
+  background-color: #47425A;
+  border-color: #47425A;
+}
+
+.content .header .viewImg:active
+{
+  background-color: #025aa5;
+  /*border: 2px solid #024379;*/
+}
+
+/*::-webkit-scrollbar {
+  display: none;
+}*/
+
+.input {
+  height: 34px;
+  margin: auto;
+  border-top: 1px solid #F1EFFD;
+  /*outline: 1px solid black;*/
+  padding: 3px;
+  box-sizing: border-box;
+  margin-top: 1px;
+}
+
+.input .prompt {
+  /*color: red;*/
+  width: 75%;
+  /*margin-left: 10px;*/
+  margin-right: 13px;
+  border: none;
+  background: transparent;
+  height: 100%;
+  font-size: 12px;
+  margin-top: 5px;
+  resize: none;
+  font-size: 11px;
+}
+
+.input .prompt:focus {
+  outline: none;
+}
+
+.input .sendmsg {
+  /*outline: 1px solid black;*/
+  width: 21px;
+  height: 21px;
+  background: url("../img/send.png") center no-repeat;
+  background-size: 80%;
+  float: right;
+  margin-top: 5px;
+}

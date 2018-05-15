@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="34px" viewBox="0 0 58 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>chevron-down</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="dripicons-v2-by-amit-jakhu" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-2520.000000, -934.000000)">
+        <path d="M2549,967.987686 C2547.912,967.987686 2546.871,967.544686 2546.117,966.759686 L2521.117,940.760686 C2519.585,939.168686 2519.635,936.635686 2521.228,935.104686 C2522.82,933.573686 2525.352,933.622686 2526.883,935.215686 L2549,958.216686 L2571.117,935.215686 C2572.647,933.623686 2575.179,933.573686 2576.772,935.104686 C2578.365,936.635686 2578.415,939.168686 2576.883,940.760686 L2551.883,966.759686 C2551.129,967.544686 2550.088,967.987686 2549,967.987686" id="chevron-down" fill="#000000"></path>
+    </g>
+</svg>

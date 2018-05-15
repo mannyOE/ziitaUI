@@ -6,6 +6,7 @@ const state = {
     error: false,
     loading: false,
     transactions: [],
+    pages: 0,
     notfound: false,
     unverified: false,
     unauthorized: null,
@@ -17,6 +18,7 @@ const getters = {
   error: state => state.sub.error,
   loading: state => state.sub.loading,
   transactions: state => state.sub.transactions,
+  pages: state => state.sub.pages,
   notfound: state => state.sub.notfound,
   unverified: state => state.sub.unverified,
   unauthorized: state => state.sub.unauthorized,
@@ -43,8 +45,12 @@ const actions = {
         commit('clearErrors');
         // Use response data
         const data = result.data
+        if(result.pages){
+          // console.log(result.pages);
+          commit('setpages', result.pages);
+        }
         commit('setTransactions', data);
-
+        return true;
         // Not Loading
         if (dargs.noLoad !== true) {
           commit('notLoading')
@@ -101,6 +107,9 @@ const mutations = {
 
   setError (state, error) {
     state.sub.error = error
+  },
+  setpages (state, pg) {
+    state.sub.pages = pg;
   },
 
   clearErrors (state) {

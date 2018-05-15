@@ -6,6 +6,7 @@ const state = {
     error: false,
     loading: false,
     projects: [],
+    currentProjects: {},
     notfound: false,
     unverified: false,
     unauthorized: null,
@@ -17,6 +18,7 @@ const getters = {
   error: state => state.sub.error,
   loading: state => state.sub.loading,
   projects: state => state.sub.projects,
+  currentProjects: state => state.sub.currentProjects,
   notfound: state => state.sub.notfound,
   unverified: state => state.sub.unverified,
   unauthorized: state => state.sub.unauthorized,
@@ -37,14 +39,14 @@ const actions = {
       });
     }
 
-    api.getTeamProjects(dargs)
+    return api.getTeamProjects(dargs)
     .then((result) => {
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setProjects', data);
-
+        return true;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');
@@ -65,6 +67,9 @@ const actions = {
         });
       }
     })
+  },
+  setCurrent({ dispatch, commit, state }, dargs){
+    commit('setCurr',dargs);
   },
   resetState ({ commit, state }) {
     commit('resetState');
@@ -89,6 +94,9 @@ const mutations = {
 
   setError (state, error) {
     state.sub.error = error
+  },
+  setCurr(state, data){
+    state.sub.currentProjects = data[0];
   },
 
   clearErrors (state) {

@@ -26,7 +26,7 @@ const getters = {
 const actions = {
   getTeam ({ dispatch, commit, state }, dargs) {
     /**
-     * Retrieve all the developers and project manager 
+     * Retrieve all the developers and project manager
      * assigned to a project
      */
     // Loading
@@ -38,14 +38,14 @@ const actions = {
       });
     }
 
-    api.getTeamByProjectId(dargs)
+    return api.getTeamByProjectId(dargs)
     .then((result) => {
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setTeam', data);
-
+        return true;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');
@@ -69,7 +69,7 @@ const actions = {
   },
   getDeveloperByTeam ({ dispatch, commit, state }, dargs) {
     /**
-     * Retrieve all the developers and project manager 
+     * Retrieve all the developers and project manager
      * assigned to a project
      */
     // Loading
@@ -81,14 +81,14 @@ const actions = {
       });
     }
 
-    api.getDeveloperByTeam(dargs)
+    return api.getDeveloperByTeam(dargs)
     .then((result) => {
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setTeam', data);
-
+        return true;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');
@@ -119,6 +119,9 @@ const actions = {
   stopLoading ({ commit, state }, id) {
     commit('notLoading', id);
   },
+  clearErrors({ commit, state }){
+    commit('clearErrors');
+  }
 }
 
 // mutations

@@ -1,4 +1,5 @@
 import { userTypes } from '@/constants';
+import api from '@/api/qa';
 
 // Remember to update resetState mutation
 const state = {
@@ -11,6 +12,7 @@ const state = {
     permissions: [],
     token: null,
     loading: false,
+    blocked: false,
   }
 }
 
@@ -25,6 +27,7 @@ const getters = {
   isProjectManagerAuth: state => state.sub.isProjectManagerAuth,
   token: state => state.sub.token,
   loading: state => state.sub.loading,
+  blocked: state => state.sub.blocked
 }
 
 // actions
@@ -57,7 +60,33 @@ const actions = {
     return true;
   },
 
-  
+  setBlocked ({ dispatch, commit, state }, blocked) {
+    /**
+     * Save the user's details in state
+     */
+    commit('setBlocked', blocked);
+    return true;
+  },
+
+  refreshPermissions ({ dispatch, commit, state }) {
+    // Loading
+
+    const token = state.sub.token;
+    return api.permsRefresh(token)
+    .then((result) => {
+      if (result.error === undefined) {
+
+        // Use response data
+
+        commit('setPermissions', result);
+        return true;
+      }
+
+
+    })
+  },
+
+
 
   setAuthenticated ({ dispatch, commit, state }, type) {
     /**
@@ -91,7 +120,6 @@ const actions = {
     const params = dargs.parameters;
     const storeAction = dargs.action;
     const token = state.sub.token;
-
     // Add token to args
     params.token = token;
     // Call action and return promise
@@ -116,6 +144,10 @@ const mutations = {
 
   setUser (state, val) {
     state.sub.user = val || {};
+  },
+
+  setBlocked (state, blocked) {
+    state.sub.blocked = blocked || false;
   },
 
   isAuthenticated (state) {

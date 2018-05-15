@@ -7,6 +7,7 @@ const state = {
     mid: "okay",
     loading: false,
     modules: [],
+    mods: [],
     notfound: false,
     unverified: false,
     unauthorized: null
@@ -18,6 +19,7 @@ const getters = {
   error: state => state.sub.error,
   loading: state => state.sub.loading,
   modules: state => state.sub.modules,
+  mods: state => state.sub.mods,
   notfound: state => state.sub.notfound,
   unverified: state => state.sub.unverified,
   unauthorized: state => state.sub.unauthorized,
@@ -59,6 +61,118 @@ const actions = {
 
         // Return Modules
         return data
+      } else {
+        if (result.unauthorized) {
+          commit('isAuthError');
+        }
+        if (result.verified) {
+          commit('isVerificationError');
+        }
+        commit('setError', result.error);
+        commit('setNotFound', result.notfound);
+
+        // Not Loading
+        if (dargs.noLoad !== true) {
+          commit('notLoading')
+        } else if (dargs.loader) {
+          const load = dargs.loader.stopLoading
+          dispatch(load.namespace, load.args, { root: true }).then(() => {
+          });
+        }
+        return false
+      }
+    })
+  },
+   readRepository ({ dispatch, commit, state }, dargs) {
+    /**
+     * Retrieve modules by project id
+     */
+    // Loading
+
+    if (dargs.noLoad !== true) {
+      commit('loading')
+    } else if (dargs.loader) {
+      const load = dargs.loader.load
+      dispatch(load.namespace, load.args, { root: true }).then(() => {
+      });
+    }
+
+    return api.readRepository(dargs)
+    .then((result) => {
+
+      if (result.error === undefined) {
+        commit('clearErrors');
+        // Use response data
+        const data = result.data
+        //commit('setModules', data);
+
+        // Not Loading
+        if (dargs.noLoad !== true) {
+          commit('notLoading')
+        } else if (dargs.loader) {
+          const load = dargs.loader.stopLoading
+          dispatch(load.namespace, load.args, { root: true }).then(() => {
+          });
+        }
+
+        // Repository
+        return data;
+      } else {
+        if (result.unauthorized) {
+          commit('isAuthError');
+        }
+        if (result.verified) {
+          commit('isVerificationError');
+        }
+        commit('setError', result.error);
+        commit('setNotFound', result.notfound);
+
+        // Not Loading
+        if (dargs.noLoad !== true) {
+          commit('notLoading')
+        } else if (dargs.loader) {
+          const load = dargs.loader.stopLoading
+          dispatch(load.namespace, load.args, { root: true }).then(() => {
+          });
+        }
+        return false
+      }
+    })
+  },
+   getDevRepository ({ dispatch, commit, state }, dargs) {
+    /**
+     * Retrieve modules by project id
+     */
+    // Loading
+
+    if (dargs.noLoad !== true) {
+      commit('loading')
+    } else if (dargs.loader) {
+      const load = dargs.loader.load
+      dispatch(load.namespace, load.args, { root: true }).then(() => {
+      });
+    }
+
+    return api.getDevRepository(dargs)
+    .then((result) => {
+
+      if (result.error === undefined) {
+        commit('clearErrors');
+        // Use response data
+        const data = result.data
+        //commit('setModules', data);
+
+        // Not Loading
+        if (dargs.noLoad !== true) {
+          commit('notLoading')
+        } else if (dargs.loader) {
+          const load = dargs.loader.stopLoading
+          dispatch(load.namespace, load.args, { root: true }).then(() => {
+          });
+        }
+
+        // Repository
+        return data;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');
@@ -174,6 +288,7 @@ const mutations = {
       error: false,
       loading: false,
       modules: [],
+      mods: [],
       notfound: false,
       unverified: false,
       unauthorized: null,

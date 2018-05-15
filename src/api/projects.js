@@ -18,6 +18,15 @@ export default {
     removeDocker: 'remove_docker',
     getDeveloperByTeam:'',
     getTestLink:"terminal/get_link/",
+    // file management
+    getFileUploads:"/files/",
+    getFileShares:"/received/",
+    deleteUploads:"/deleteFiles/",
+    shareFile:"/shareFile/",
+    sendFile: "/fileUpload/",
+    update: "files/update/",
+    // end file management
+    getTestLink:"terminal/get_link/",
     getGitUrlTest: "terminal/test_git_url",
     devDetail: {
       p: 'projects/',
@@ -26,11 +35,51 @@ export default {
     timeline: 'timeline/',
   },
 
-  getTimeline (dargs) {
+  uploadFile (dargs){
+    // console.log(dargs.image);
+    return blackAxios.post(this.resource.sendFile, dargs.image,
+    {
+      'headers': { 'x-access-token': dargs.token, team: dargs.user.team_Id, project: dargs.project }
+    })
+      .then(function (response) {
+        return add.success({
+          response: response,
+          resource: ''
+        });
+      })
+      .catch(function (error) {
+        return add.error({
+          error: error,
+          defaultmsg: ''
+        });
+      });
+  },
+
+  update (dargs){
+    // console.log(dargs.image);
+    return blackAxios.post(this.resource.update+dargs.Id, {devId:  dargs.devId, status: dargs.status},
+    {
+      'headers': { 'x-access-token': dargs.token }
+    })
+      .then(function (response) {
+        return add.success({
+          response: response,
+          resource: ''
+        });
+      })
+      .catch(function (error) {
+        return add.error({
+          error: error,
+          defaultmsg: ''
+        });
+      });
+  },
+
+  getAllUploads (dargs) {
     /**
      * Get timeline for a project
      */
-    return blackAxios.get(this.resource.timeline + dargs.id, {
+    return blackAxios.get(this.resource.getFileUploads + dargs.user+'/'+dargs.team, {
         'headers': { 'x-access-token': dargs.token }
       })
     .then(function (response) {
@@ -46,11 +95,96 @@ export default {
       });
     });
   },
+
+  getAllShares (dargs) {
+    /**
+     * Get timeline for a project
+     */
+    return blackAxios.get(this.resource.getFileShares + dargs.user+'/'+dargs.team, {
+        'headers': { 'x-access-token': dargs.token }
+      })
+    .then(function (response) {
+      return getAll.success({
+        response: response,
+        resource: 'data'
+      });
+    })
+    .catch(function (error) {
+      return getAll.error({
+        error: error,
+        resource: ''
+      });
+    });
+  },
+
+  share (dargs) {
+    /**
+     * Get timeline for a project
+     */
+    return blackAxios.get(this.resource.shareFile + dargs.user+'/'+dargs.file, {
+        'headers': { 'x-access-token': dargs.token }
+      })
+    .then(function (response) {
+      return getAll.success({
+        response: response,
+        resource: 'data'
+      });
+    })
+    .catch(function (error) {
+      return getAll.error({
+        error: error,
+        resource: ''
+      });
+    });
+  },
+
+  deleteFiles (dargs) {
+    /**
+     * Get timeline for a project
+     */
+    return blackAxios.get(this.resource.deleteUploads + dargs.user+'/'+dargs.file, {
+        'headers': { 'x-access-token': dargs.token, 'team': dargs.team }
+      })
+    .then(function (response) {
+      return getAll.success({
+        response: response,
+        resource: 'data'
+      });
+    })
+    .catch(function (error) {
+      return getAll.error({
+        error: error,
+        resource: ''
+      });
+    });
+  },
+
+  getTimeline (dargs) {
+    /**
+     * Get timeline for a project
+     */
+    return blackAxios.get(this.resource.timeline + dargs.id, {
+        'headers': { 'x-access-token': dargs.token }
+      })
+    .then(function (response) {
+      // console.log(response);
+      return getAll.success({
+        response: response,
+        resource: ''
+      });
+    })
+    .catch(function (error) {
+      return getAll.error({
+        error: error,
+        resource: ''
+      });
+    });
+  },
   getDeveloper (dargs) {
     /**
      * Get dev analysis in this project
      */
-    
+
     return blackAxios.get(this.resource.devDetail.p + dargs.projectId + this.resource.devDetail.d + dargs.id, {
         'headers': { 'x-access-token': dargs.token }
       })
@@ -79,7 +213,7 @@ export default {
         return getAll.success({
           response: response,
           resource: 'data'
-          
+
         });
       })
       .catch(function (error) {
@@ -267,7 +401,7 @@ export default {
     /**
      * Create a new docker
      */
-     
+
     return blackAxios.post(this.resource.getConfigTest, {
       ssh_username: dargs.ssh_username,
       ssh_password: dargs.ssh_password,
@@ -276,7 +410,7 @@ export default {
       ssh_passphrase: dargs.ssh_passphrase,
       ssh_port: dargs.ssh_port,
       project_port: dargs.ssh_project_port
-     
+
     },
     {
       'headers': { 'x-access-token': dargs.token }
@@ -298,19 +432,19 @@ export default {
     /**
      * Create a new docker
      */
-     
+
     return blackAxios.post(this.resource.getGitUrlTest, {
       username: dargs.username,
       password: dargs.password,
       url: dargs.url,
 
-     
+
     },
     {
       'headers': { 'x-access-token': dargs.token }
     })
       .then(function (response) {
-        
+
         return add.success({
           response: response,
           resource: ''
@@ -334,7 +468,9 @@ export default {
       username: dargs.username,
       password: dargs.password,
       name: dargs.project_name
-    },
+    }, {
+        'headers': { 'x-access-token': dargs.token }
+      },
     )
       .then(function (response) {
         return add.success({
@@ -371,14 +507,16 @@ export default {
   },
 
   setDefaultDocker (dargs) {
-    
+
     /**
      * Update a docker file
      */
     return blackAxios.post(this.resource.setDefaultDocker, {
       projectId: dargs.projectId,
       id: dargs.Id
-    },
+    }, {
+        'headers': { 'x-access-token': dargs.token }
+      },
     )
       .then(function (response) {
         return add.success({
@@ -395,7 +533,7 @@ export default {
   },
 
   removeDocker (dargs) {
-    
+
     /**
      * Remove a docker file
      */
@@ -403,6 +541,9 @@ export default {
       team_Id: dargs.team_Id,
       Id: dargs.Id
     },
+      {
+        'headers': { 'x-access-token': dargs.token }
+      }
     )
       .then(function (response) {
         return add.success({

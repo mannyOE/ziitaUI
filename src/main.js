@@ -4,9 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import VeeValidate from 'vee-validate';
 import router from './router'
-import store from './store'
+  import store from './store'
 import VueSocketio from 'vue-socket.io';
-import vmodal from 'vue-js-modal'
 
 
 // Plugins
@@ -18,21 +17,32 @@ import vuescroll from 'vue-scroll'
 
 // Css Assets
 import 'element-ui/lib/theme-chalk/index.css'
-// require('./assets/libs/font-awesome/css/font-awesome.css')
-// require('./assets/libs/Ionicons/css/ionicons.min.css')
+require('./assets/libs/font-awesome/css/font-awesome.css')
+require('./assets/libs/Ionicons/css/ionicons.min.css')
+import 'pretty-checkbox/src/pretty-checkbox.scss'
+
 // // require('./assets/css/flexboxgrid.min.css')
 // // import './assets/css/bootstrap-tagsinput.css';
 // // import './assets/css/fixedstyles.css';
-// require ('./assets/css/animate.css')
-// require('./assets/css/bootstrap/css/bootstrap.min.css')
+require ('./assets/css/animate.css')
+require('./assets/css/bootstrap/css/bootstrap.min.css')
 // import './assets/css/bootstrap/css/materialpaper.css';
 // require('./assets/css/styles.css')
+// require ('./assets/fonts/my-font.css');
+require('./assets/css/styles.css')
+
 // require url('https://fonts.googleapis.com/css?family=Raleway:400,500');
+require('./assets/css/circle.css')
+// require('./assets/fonts/my-font.css');
+// require('./assets/css/main.css');
+// require('./assets/css/util.css');
+
+
 // @import './assets/libs/montserrat-webfont/css/montserrat-webfont.min.css';
 
 // chat css
-// import "./assets/css/chat.css";
-// import "./assets/css/media.css";
+import "./assets/css/chat.css";
+import "./assets/css/media.css";
 
 // cOfiguration of the vee validate
 const config = {
@@ -65,7 +75,6 @@ Vue.use(ElementUI, { locale })
 Vue.use(require('vue-moment'));
 Vue.use(VueSocketio, Vue.prototype.$API);
 Vue.use(vuescroll)
-Vue.use(vmodal)
 
 //Vue.config.productionTip = false
 
@@ -80,4 +89,4 @@ var vm = new Vue({
   template: '<App/>',
   debug: true,
   components: { App }
-}) 
+})

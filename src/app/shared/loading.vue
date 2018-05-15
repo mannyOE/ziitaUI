@@ -1,10 +1,10 @@
 <template>
-<el-dialog :visible="show" width="25%"
+<el-dialog :visible="show" v-if="show" width="18%"
       :show-close="false"
-      :before-close="beforeClose" style="margin-top: 150px; padding-left: 20px;">
+      :before-close="beforeClose" class="person-card" style="margin-top: 150px; padding-left: 20px;">
 		<div class="row" style="margin-left: 20px;">
-			<div class="col-xs-3 loading"></div>
-			<div class="col-xs-8 ls" style="padding-left: 30px;">Wait One Moment ...</div>
+			<div class="col-xs-2 loading"></div>
+			<div class="col-xs-8 ls">Loading</div>
 		</div>
 </el-dialog>
 </template>
@@ -22,7 +22,11 @@ export default {
   
   methods: {
     beforeClose(done) {
+      // emit('reloadStore');
       this.$_$closeModal();
+      	//   done();
+      	// this.$router.reload();
+
     },
   }
 };
@@ -37,9 +41,7 @@ export default {
 .ls {
 	text-align: center;
 	line-height: 10px;
-	 font-size: 16px;
-	text-transform: uppercase;
-  color: chocolate;
+	font-size: 16px;
 	font-weight: bolder;
 	margin-top: -5px;
 }
@@ -48,7 +50,7 @@ export default {
  		border: 5px solid #f3f3f3;
  		height: 50px;
  		width: 50px;
- 		border-top-color: chocolate;
+ 		border-top-color: #3498db;
  		border-radius: 100%;
  		animation: round 0.5s linear infinite;
 		 z-index: 110;

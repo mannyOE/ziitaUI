@@ -32,8 +32,7 @@ export default {
     .then(function (response) {
       return getAll.success({
         response: response,
-        resource: 'data',
-        more: more
+        resource: 'data'
       });
     })
     .catch(function (error) {

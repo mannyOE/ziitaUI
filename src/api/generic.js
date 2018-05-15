@@ -15,12 +15,12 @@ import { getErrMsg,
 // API Helpers
 export const getAll = {
     success (dargs) {
-      // console.log(dargs);
         const response = dargs.response;
         const resource = dargs.resource;
         const result = {};
         let data = '';
 
+        // console.log(response.data.denied);
         print('Retrieval Completed: ', response);
         try {
             data = response.data[resource];
@@ -28,6 +28,9 @@ export const getAll = {
             // Nada
         }
 
+        if(response.data.denied){
+          result.denied = true;
+        }
         // Check for error in status for now
         if (response.data.status === false || response.data.success === false) {
             result.error = response.data.message;
@@ -42,9 +45,20 @@ export const getAll = {
         if(response.data.more){
           result.more = response.data.more;
         }
-        result.data = data;
-        result.msg = response.msg;
+        if(response.data.pages){
+          result.pages = response.data.pages;
+        }
+        if(response.data.statistics){
+          result.stats = response.data.statistics;
+        }
 
+        result.data = data;
+
+        result.msg = response.msg;
+        // this.$show_notification("Access Denied");
+        if(response.data.denied){
+           result.denied = true;
+        }
         return result;
     },
 

@@ -8,6 +8,8 @@ import getDeveloper from './getDeveloper'
 import getTimeline from './getTimeline'
 import overview from './overview'
 import sshSetup from './sshSetup'
+import FileShare from './fileSharing'
+import FileUpload from './fileUpload'
 
 // Remember to update resetState mutation
 const state = {
@@ -23,6 +25,7 @@ const state = {
 }
 
 // getters
+// jhjghjguy
 const getters = {
   status: state => state.sub.status,
   error: state => state.sub.error,
@@ -45,13 +48,14 @@ const actions = {
       });
     }
 
-    api.retrieve(dargs)
+    return api.retrieve(dargs)
     .then((result) => {
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setProjects', data);
+        return true;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');
@@ -157,6 +161,8 @@ export default {
     getDeveloper,
     getTimeline,
     overview,
-    sshSetup
+    sshSetup,
+    FileShare,
+    FileUpload,
   }
 }

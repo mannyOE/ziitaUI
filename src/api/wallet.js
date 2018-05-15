@@ -15,7 +15,7 @@ export default {
     /**
      * Get wallet balance by user id
      */
-    return blackAxios.get(this.resource.wallet + dargs.userId, {
+    return blackAxios.get(this.resource.wallet , {
       'headers': { 'x-access-token': dargs.token }
     })
       .then(function (response) {
@@ -37,7 +37,7 @@ export default {
     /**
      * Get cards by user id
      */
-    return blackAxios.get(this.resource.getCard + dargs.userId, {
+    return blackAxios.get(this.resource.getCard, {
       'headers': { 'x-access-token': dargs.token }
     })
     .then(function (response) {
@@ -79,17 +79,18 @@ export default {
     /**
      * get transactions by user id
      */
-    return blackAxios.get(this.resource.getTransactions + dargs.userId, {
+    return blackAxios.get(this.resource.getTransactions+dargs.page, {
       'headers': { 'x-access-token': dargs.token }
     })
       .then(function (response) {
-        return gDelete.success({
+        // console.log(response);
+        return getAll.success({
           response: response,
           resource: 'data'
         });
       })
       .catch(function (error) {
-        return gDelete.error({
+        return getAll.error({
           error: error,
           resource: ''
         });

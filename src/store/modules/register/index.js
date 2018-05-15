@@ -31,7 +31,37 @@ const actions = {
     commit('loading');
     return api.register(args)
     .then((result) => {
-        return result.data;
+      if (result.error === undefined && result.data && result.data.status) {
+        commit('clearErrors');
+        if(args.Email.length === 0){
+          args.Email = result.data.Email
+        }
+        if(result.data.type == 2) {
+          return dispatch('auth/login', args, {root: true})
+              .then(function (status) {
+                commit('notLoading');
+                return status;
+              });
+        }else{
+          return result;
+        }
+      } else {
+        commit('failure');
+
+        // Turn field errors to obj instead of array
+        let fieldErrors;
+        try {
+          fieldErrors = errorToObj(result.data)
+        } catch (TypeError) {
+          // Do Nada
+        }
+        commit('setFieldErrors', fieldErrors);
+
+        commit('setError', result.error);
+        commit('notLoading');
+        return result;
+      }
+
     });
   },
   getInvited ({ dispatch, commit, state }, args) {

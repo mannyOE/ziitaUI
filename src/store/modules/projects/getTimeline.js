@@ -43,8 +43,9 @@ const actions = {
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
-        const data = result.data
+        const data = result.data.timeline;
         commit('setTimeline', data);
+        console.log("TIME",result)
 
       } else {
         if (result.unauthorized) {

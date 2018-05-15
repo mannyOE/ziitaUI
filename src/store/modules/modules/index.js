@@ -171,7 +171,7 @@ const actions = {
 
     // Get In Progress Modules
     dargs.status = moduleStatusTypes.inprogress.id
-    
+
     dispatch(byStatusAction, dargs, {root: true})
     .then((modules) => {
       if (modules) {
@@ -195,7 +195,7 @@ const actions = {
 
     // Get Submitted Modules
     dargs.status = moduleStatusTypes.submitted.id
-    
+
     dispatch(byStatusAction, dargs, {root: true})
     .then((modules) => {
       if (modules) {
@@ -207,7 +207,7 @@ const actions = {
 
     // Get Done Modules
     dargs.status = moduleStatusTypes.done.id
-    
+
     dispatch(byStatusAction, dargs, {root: true})
     .then((modules) => {
       if (modules) {

@@ -1,0 +1,3 @@
+chat.vue -> Subscription, dummy msgs prop
+footer.vue -> Publish Msgs textfield + sendbtn
+content.vue -> Image data Var = null, dummy msgs data, dummy contentfoot, dummy chat, dummy newmsg f(x)

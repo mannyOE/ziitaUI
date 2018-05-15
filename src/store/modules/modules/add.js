@@ -88,6 +88,66 @@ const actions = {
                 return false;
             })
     },
+        saveMethods ({ dispatch, commit, state }, dargs) {
+        // Loading
+        if (dargs.noLoad !== true) {
+            commit('loading')
+        } else if (dargs.loader) {
+            const load = dargs.loader.load
+            dispatch(load.namespace, load.args, { root: true }).then(() => {
+            });
+        }
+        return api.saveMethods(dargs)
+            .then((result) => {
+                if (result.error === undefined) {
+                    // Successful
+                    commit('clearErrors');
+
+                    // Use response body
+                    //
+                    const data = result.data
+                    const returnObject = {
+                        Id: data.Id,
+                        state: true,
+                    }
+
+                    // Not Loading
+                    if (dargs.noLoad !== true) {
+                        commit('notLoading')
+                    } else if (dargs.loader) {
+                        const load = dargs.loader.stopLoading
+                        dispatch(load.namespace, load.args, { root: true }).then(() => {
+                        });
+                    }
+                    return returnObject;
+                }
+
+                // else
+                // Failed
+                if (result.unauthorized) {
+                    commit('isAuthError');
+                }
+                commit('setVerification', result.unverified);
+                commit('setNotFound', result.notfound);
+
+                // Turn field errors to obj instead of array
+                const fieldErrors = result.data;
+
+                commit('setFieldErrors', fieldErrors);
+
+                commit('setError', result.error);
+
+                // Not Loading
+                if (dargs.noLoad !== true) {
+                    commit('notLoading')
+                } else if (dargs.loader) {
+                    const load = dargs.loader.stopLoading
+                    dispatch(load.namespace, load.args, { root: true }).then(() => {
+                    });
+                }
+                return false;
+            })
+    },
     clearErrors ({ commit, state }) {
         commit('clearErrors');
     },

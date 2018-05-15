@@ -8,7 +8,16 @@ export default {
   invite: 'singleInvite/',
 
   register (dargs) {
-    return blackAxios.post(this.res, dargs)
+    return blackAxios.post(this.res, {
+        first_name: dargs.first_name,
+        last_name: dargs.last_name,
+        Email: dargs.Email,
+        Password: dargs.Password,
+        type: dargs.type,
+        team_name: dargs.team_name,
+        team_Id: dargs.team_Id,
+        invite_Id: dargs.invite_Id,
+      })
       .then(function (response) {
         print(response);
 

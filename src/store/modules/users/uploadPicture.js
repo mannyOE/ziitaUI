@@ -31,6 +31,7 @@ const getters = {
 const actions = {
     uploadPicture ({ dispatch, commit, state }, dargs) {
         // Loading
+        console.log(dargs);
         if (dargs.noLoad !== true) {
             commit('loading')
         } else if (dargs.loader) {

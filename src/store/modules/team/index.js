@@ -19,6 +19,7 @@ const state = {
     notfound: false,
     unverified: false,
     unauthorized: null,
+    denied: false,
   }
 }
 
@@ -30,13 +31,14 @@ const getters = {
   notfound: state => state.sub.notfound,
   unverified: state => state.sub.unverified,
   unauthorized: state => state.sub.unauthorized,
+  denied: state =>state.sub.denied,
 }
 
 // actions
 const actions = {
   getClientTeam ({ dispatch, commit, state }, dargs) {
     /**
-     * Retrieve all the developers and project managers 
+     * Retrieve all the developers and project managers
      * in a client's team
      */
     // Loading
@@ -49,16 +51,19 @@ const actions = {
         });
       }
     }
-    
+
 return     api.getTeamById(dargs)
     .then((result) => {
-      // 
+      //
       if (result.error === undefined) {
 
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setTeam', data);
+        if(result.denied){
+          commit('setDenied', true);
+        }
         commit('notLoading')
         return result.data.data;
 
@@ -75,13 +80,13 @@ return     api.getTeamById(dargs)
         return result.error;
       }
 
-      // 
+      //
 
       // Not Loading
       if (dargs.noLoad !== true) {
         commit('notLoading')
       } else if (dargs.loader) {
-        
+
         const load = dargs.loader.stopLoading
         dispatch(load.namespace, load.args, { root: true }).then(() => {
         });
@@ -121,6 +126,9 @@ const mutations = {
 
   setError (state, error) {
     state.sub.error = error
+  },
+  setDenied(state, denied){
+    state.sub.denied = denied;
   },
 
   clearErrors (state) {

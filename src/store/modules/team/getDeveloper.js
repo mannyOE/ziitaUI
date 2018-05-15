@@ -37,14 +37,14 @@ const actions = {
       }); 
     }
 
-    api.getDeveloper(dargs)
-    .then((result) => {
+    return api.getDeveloper(dargs)
+    .then((result) => {      
       if (result.error === undefined) {
         commit('clearErrors');
         // Use response data
         const data = result.data
         commit('setDeveloper', data);
-
+        return data;
       } else {
         if (result.unauthorized) {
           commit('isAuthError');

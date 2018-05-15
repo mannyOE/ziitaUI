@@ -64,10 +64,9 @@ const actions = {
         commit('clearErrors');
         // Use response data
         const data = result.data;
-        commit('setRoles', data);
-        commit('setMore',result.more);
+        // commit('setRoles', data);
+        // commit('setMore',result.more);
 
-        
 
       } else {
         if (result.unauthorized) {
