@@ -53,6 +53,7 @@ const router = new Router({
     {
       path: '/',
       name: 'index',
+      redirect: '/login',
       component: HomePage,
     },
     {
