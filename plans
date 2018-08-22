@@ -1,0 +1,20 @@
+api endpoints (company){
+    events:{
+        'company/getEvents'
+        'company/setEvents',
+        'company/getNotes'
+        'company/setNotes'
+
+    },
+
+    clients: {
+        'company/getClients',
+        'company/setClients'
+        ''
+
+    },
+    staff:{
+
+    },
+
+}

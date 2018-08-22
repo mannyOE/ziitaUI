@@ -1,24 +1,27 @@
 <template>
-  <div class="container animated slideInUp" style="margin-top: 50px">
+  <div class="container animated slideInUp" >
 
+    
+{{setEmail}}
     <div class="row">
       <div class="col-md-4"></div>
-      <div class="col-md-4 well loginwell">
-        <div class="auth-header" >
-          <img :src="require('@/assets/img/zeedas-png.png')" alt="Zeedas" width="100px" height="100px" class="login-signup-logo" />
+      <div class="col-md-4 loginwell">
+        <div class="auth-header text-center" >
+          <!-- <img :src="require('@/assets/img/zeedas-png.png')" alt="Zeedas" width="100px" height="100px" class="login-signup-logo" /> -->
           <div v-if="sent">
           <h4 class="title">Confirmation Link Sent</h4>
-          <span class="sub-title">
+          <div class="sub-title text-left">
               Please check your mail for confirmation link<br><br>
               Please check your Spam or Junk Folder in case its not in the inbox<br>
 
-
+            <br><br>
            <i v-if="user.email != ''">
-            Didn't Receive? <a style="cursor: pointer" @click="validateBeforeSubmit(user.email)">Resend</a>
+            Didn't Receive? <a v-if="!myloading" style="cursor: pointer" @click="validateBeforeSubmit(user.email)">Resend</a>
                </i>
+               <span v-if="myloading" class="fa fa-spinner fa-spin"></span>
                <br>
 
-          </span>
+          </div>
           </div>
 
             <div v-else >
@@ -92,7 +95,7 @@ import { redirectHome } from '@/app/helpers';
 
 export default {
   name: 'login',
-  props: ['redirectUrl'],
+  props: ['redirectUrl','resendTo'],
   components: {
   },
   destroyed () {
@@ -118,11 +121,16 @@ export default {
       ]),
       sent(){
           return this.have_sent?true:this.$route.params.sent == 1;
+      },
+      setEmail(){
+          if(this.resendTo){
+              this.user.email = this.resendTo;
+          }
       }
   },
   methods: {
         ...mapActions('auth', [
-            'resend_confirmation',
+          'resend_confirmation',
             'clearErrors',
         ]),
 
@@ -203,5 +211,12 @@ export default {
     box-shadow: 0 2px 15px rgba(0,0,0,0.16);
     border-radius: 50%;
     padding: 12px 21px;
+}
+.loginwell {
+    padding: 25px;
+    border: 1px solid #3369da;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.16);
+    border-radius: 5px;
+    margin-top: 150px;
 }
 </style>

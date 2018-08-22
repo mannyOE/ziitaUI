@@ -39,31 +39,23 @@
 
                         <div class="row">
                             <!-- This Is where we use the validation with vee validate -->
-                         <!--    <div class="col-md-12">
-                                  <label class="email-input" for="first name">First Name</label>
+                            <div class="col-md-12 email" v-if="!invited" style="margin-top:20px !important">
+                                 <label class="email-input" for="email">COMPANY NAME</label>
                                     <p :class="{ 'control': true }">
-                                        <input v-validate="'required|min:2'" 
-                                            v-model="user.firstName"
-                                            class="form-control" 
-                                            :class="{'input': true, 'is-danger': errors.has('first name') }" 
-                                            name="first name" 
+                                        <input v-validate="'required'" 
+                                            v-model="user.team_name"
+                                            class="form-control login-input"
+                                            :class="{'input': true, 'is-danger': errors.has('team_name') }" 
+                                            name="team_name" 
                                             type="text" 
-                                            placeholder="First Name"> -->
-                                        <!-- <input v-validate="'required|min:2'" 
-                                            v-model="user.firstName"
-                                            class="form-control" 
-                                            :class="{'input': true, 'is-danger': errors.has('first name') }" 
-                                            name="first name" 
-                                            type="text" 
-                                            placeholder="First Name"> -->
+                                            placeholder="COMPANY NAME">
 
-                                 <!--        <FieldError>
-                                            {{ errors.first('first name') || fieldErrors.first_name }}
+                                        <FieldError>
+                                            {{ errors.first('team_name')  }}
                                         </FieldError>
                                     </p>
-                            </div> -->
-                            
-                              <div class="col-md-12 email">
+                            </div>
+                              <div class="col-md-12 email" style="margin-top:29px !important">
                                  <label class="email-input" for="email">FIRST NAME</label>
                                     <p :class="{ 'control': true }">
                                         <input v-validate="'required'" 
@@ -96,7 +88,7 @@
                                     </p>
                             </div>
 
-                            <div class="col-md-12 email" style="margin-top:29px !important">
+                            <div class="col-md-12 email" style="margin-top:29px !important" v-if="!invited">
                                  <label class="email-input" for="email">EMAIL</label>
                                     <p :class="{ 'control': true }">
                                         <input v-validate="'required|email'" 
@@ -112,28 +104,6 @@
                                         </FieldError>
                                     </p>
                             </div>
-
-                            <!-- <div v-if="!type" class="col-md-12">
-                                <div class="form-group">
-                                    <label class="label" for="email">
-                                        Who are you?
-                                    </label>
-                                    <select v-validate="'required'"
-                                        v-model="user.userType"
-                                        class="form-control" 
-                                        :class="{'input': true, 'is-danger': errors.has('user type') }" 
-                                        name="user type" >
-                                         <option v-for="type in $_$userTypes" :value="type.value">{{ type.name }}</option>
-                                    </select>
-
-                                    <FieldError>
-                                        {{ errors.first('user type') || fieldErrors.type }}
-                                    </FieldError>
-                                </div>
-                               
-                            </div> -->
-
-                            <!-- <div v-show="isUserClient" class="col-md-12"> -->
                             
                             <div class="col-md-12 email" style="margin-top:29px !important">
                                 <label class="email-input" for="password">PASSWORD</label>
@@ -156,23 +126,6 @@
                                     </FieldError>
                                 </p>
                             </div>
-
-                       <!--      <div class="col-md-12">
-                                <label class="email-input" for="cpassword">Confirm Password</label>
-                                <p :class="{ 'control': true }">
-                                    <input v-validate="'required|min:6|confirmed:password'"
-                                        class="form-control" 
-                                        :class="{'input': true, 'is-danger': errors.has('password confirmation') }" 
-                                        name="password confirmation" 
-                                        type="password" 
-                                        placeholder="Confirm Password">
-
-                                    <FieldError>
-                                        {{ errors.first('password confirmation') }}
-                                    </FieldError>
-                                </p>
-                            </div> -->
-
                         </div>
                         <div class="text-center">
                              <button v-if="!loading" style="margin-top:29px;box-shadow: 0 13px 30px -17px rgba(50,106,218,0.49);" type="submit"  class="btn btn-reg">
@@ -182,8 +135,8 @@
                             <LoadingButton v-else buttonclass="btn btn-started" style="margin-top:29px; background: none !important"> Registering...</LoadingButton>
                             
                         </div>
-                        <div class="proceed" style="margin-top:81px !important">
-                            <span>By proceeding, I agree to Zeedas Terms of Service and Privacy Policy
+                        <div class="proceed" style="margin-top:41px !important; margin-bottom: 50px;">
+                            <span>By proceeding, I agree to Zitta's Terms of Service and Privacy Policy
                             </span>
                         </div>
                     </form>
@@ -218,7 +171,7 @@ export default {
                 lastName: '',
                 email: '',
                 userType: null,
-                teamName: null,
+                team_name: null,
                 password: '',
                
             },
@@ -226,7 +179,7 @@ export default {
         };
     },
     created(){
-        this.invitedDetail()
+        // this.invitedDetail()
     },
     watch:{
         single(){
@@ -247,6 +200,12 @@ export default {
             const clientType = this.$_$userTypesObject.client.id
             return this.user.userType === clientType
         },
+        invited(){
+            if(this.inviteId !== undefined){
+                return true;
+            }
+            return false;
+        }
 
     },
     methods: {
@@ -290,6 +249,7 @@ export default {
             redirectHome(this, type);
         },
 
+
         clearFields () {
             this.user = {
                 firstName: '',
@@ -313,7 +273,7 @@ export default {
                         Password: this.user.password,
                         // type: this.type || this.user.userType,
                         type: this.type || 1,
-                        team_name: this.user.teamName,
+                        team_name: this.user.team_name,
                         team_Id: this.teamId,
                         invite_Id: this.inviteId,
                     }
@@ -322,13 +282,12 @@ export default {
                     .then(function (status) {
 
                         if (status.data && status.data.status) {
-                            self.clearFields()
                             if(status.data.type == 2){
                                 self.redirectHome(status.userType)
                             }  
                             if(status.data.type == 1){
                                 self.$show_notification("Sign up successful. Please check your email to confirm your account");
-                                self.$router.push("/confirmation_sent/1");
+                                self.$router.push("/confirmation_sent/1?resendTo="+self.user.email);
 
                             }
                             if(status.data.type == 3){
@@ -337,9 +296,9 @@ export default {
                             }
                         } else {
                             self.$show_notification(status.error || status.data.message, "error");
-//                            self.clearFields()
 //                            self.redirectLogin()
                         }
+                           self.clearFields()
                     });
                     return;
                 }
@@ -376,6 +335,7 @@ export default {
 .log-in{
   /*max-width: 450px !important;*/
   width: 100%;
+  margin-top: -50px;
 }
 .my-nav{
   margin-top: 40px

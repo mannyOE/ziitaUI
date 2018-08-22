@@ -9,22 +9,41 @@
 			</AuthenticatedField>
 
 			<AuthenticatedField >
-				<li :class="{'active': routeName === 'clientteam'}"><router-link :to="{name: 'clientteam'}">
+				<li :class="{'active': routeName === 'clients'}"><router-link :to="{name: 'clients'}">
 					<i class="ion-android-people"></i>
-					<span class="link-title">People</span> </router-link>
+					<span class="link-title">Clients</span> </router-link>
 				</li>
 			</AuthenticatedField>
 
-			<!-- <AuthenticatedField >
+			<AuthenticatedField >
 
-			<li :class="{'active': routeName === 'category'}"><router-link :to="{name: 'category'}"><i class="ion-gear-a" style="margin-right: 4px;"></i>
-			<span class="link-title">Category</span> </router-link> </li>
+			<li :class="{'active': routeName === 'staff'}"><router-link :to="{name: 'staff'}">
+				<i class="ion-gear-a" style="margin-right: 4px;"></i>
+			<span class="link-title">Staff</span> </router-link> </li>
 		</AuthenticatedField>
 
 			<AuthenticatedField>
+				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}">
+					<i class="ion-ios-albums-outline"></i>
+				<span class="link-title">Communication</span></router-link> </li>
+			</AuthenticatedField>
+			<AuthenticatedField>
 				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}"><i class="ion-ios-albums-outline"></i>
-				<span class="link-title">Wallet</span></router-link> </li>
-			</AuthenticatedField> -->
+				<span class="link-title">Reporting</span></router-link> </li>
+			</AuthenticatedField>
+			<AuthenticatedField>
+				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}"><i class="ion-ios-albums-outline"></i>
+				<span class="link-title">Task Manager</span></router-link> </li>
+			</AuthenticatedField>
+			<AuthenticatedField>
+				<li :class="{'active': routeName === 'messaging'}"><router-link :to="{name: 'messaging'}"><i class="ion-ios-chatboxes-outline"></i>
+				<span class="link-title">Messaging</span></router-link> </li>
+			</AuthenticatedField>
+
+			<AuthenticatedField>
+				<li :class="{'active': routeName === 'billings'}"><router-link :to="{name: 'billings'}"><i class="ion-ios-chatboxes-outline"></i>
+				<span class="link-title">Billings</span></router-link> </li>
+			</AuthenticatedField>
 		</ul>
 
 	</div>

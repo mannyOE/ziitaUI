@@ -2,12 +2,6 @@
   <div id="App">
     <!-- <BaseHeader id="header" /> -->
     <router-view></router-view>
-      <AuthenticatedField :pm="true">
-     <ChatModal :show="true" style="display:unset !important"
-            :project_Id="$route.params.id"
-            >
-        </ChatModal>
-      </AuthenticatedField>
   </div>
 </template>
 

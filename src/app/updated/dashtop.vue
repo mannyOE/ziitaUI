@@ -1,24 +1,12 @@
 <template>
 
 	<nav class="navbar sidebar-dashboard">
-		<div class="row text-center" v-if="isAuth">
-	    <p v-if="user.type === '1' && isAccountBlocked" class="bg-danger text-danger" style="padding: 20px; font-size: 20px;">
-	      Your Account has been blocked from your team members. Fund your <router-link :to="{name: 'wallet'}">wallet here</router-link>
-	    </p>
-	    <BlockedAccount :show="isAccountBlocked" :label="'Account Blocked'"
-	    v-else-if="user.type !== '1'"></BlockedAccount>
-	  </div>
-
     <div class="row">
     <div class=" col-xs-8">
-			<div class="input-group search-box" style="position: relative;">
-					<img class="search_img" src="../../assets/img/search.svg" height="20" >
-				<input type="text" placeholder="S E A R C H ..." class="search"/>
-			</div>
     </div>
 	<div class="col-xs-4">
       <ul class="nav navbar-nav " style="float: right; width: 300px; margin-right: -7px">
-				<Notifications/>
+				<!-- <Notifications/> -->
 				<profile/>
 				<!-- {{user}} -->
 

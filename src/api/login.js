@@ -20,25 +20,7 @@ export default {
         Password: dargs.Password,
       })
       .then(function (response) {
-
-        //print('Login Completed: ', response);
-        
-        const responseData = response.data;
-
-        let result = {
-          data: responseData,
-          userType: responseData.type,
-          token: responseData.token,
-        };
-
-        // Setup to check for failure in status message for now
-        if (response.data.status === false) {
-          result.error = response.data.messasge;
-          result.autherror = true;
-          return result;
-        }
-
-        return result;
+        return response.data;
       })
       .catch(function (error) {
         let result = {};

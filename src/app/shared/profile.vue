@@ -12,13 +12,6 @@
       </div>
     </a>
     <ul class="dropdown-menu d-p-m col-md-12" style="">
-      <!--<li>-->
-      <!--<a href="#">-->
-        <!--<router-link :to="{ name: 'perms'}">-->
-          <!--Permissions-->
-        <!--</router-link>-->
-      <!--</a>-->
-      <!--</li>-->
       <li>
       <a href="#">
         <router-link :to="{ name: 'profile' }">Profile</router-link> &nbsp;
@@ -27,14 +20,6 @@
       <li>
         <a href="#" @click.stop="logoutUser()">Log out</a>
       </li>
-      <!--<div class="profile-email text-left">-->
-        <!--<span style="border-bottom: 1px solid rgba(214,218,229,0.34); padding-bottom: 7px;"><i class="ion-ios-email-outline" style="font-size: 17px;"></i>&nbsp; {{ userData.Email }} </span>-->
-         <!--<p style="padding-top: 7px;"><i class="ion-ios-person-outline" style="font-size: 18px;" ></i>&nbsp;&nbsp;{{ $_$getUserTypeName(userData.type) }}</p>-->
-      <!--</div>-->
-
-        <!-- <AuthenticatedField v-show="check_permission('managePermission')"> -->
-
-        <!-- </AuthenticatedField> -->
       </div>
     </ul>
   </li>

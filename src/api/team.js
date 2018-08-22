@@ -3,7 +3,7 @@ import { getAll, getById, add, edit, gDelete } from './generic';
 
 export default {
   resource: {
-    byId: 'Team/',
+    byId: 'get_clients/',
     //people_details /
     hireUser: 'hireables/request/',
     confirmHire: 'hireables/confirm/',
@@ -139,7 +139,7 @@ export default {
      * Get all the members of a client's team,
      * using the client's team id
      */
-    return blackAxios.get(this.resource.byId + dargs.id, {
+    return blackAxios.get(this.resource.byId, {
         'headers': { 'x-access-token': dargs.token }
       })
     .then(function (response) {

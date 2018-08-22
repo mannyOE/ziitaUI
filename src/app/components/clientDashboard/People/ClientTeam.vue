@@ -3,27 +3,19 @@
     <!-- {{user}} -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6 main-title" style="font-size: 14px !important">
-          <h3 style="font-size: 16px !important">MEMBERS
-            <span style="font-size: 16px !important" >({{ team.length }})</span>
+        <div class="col-md-11 main-title" style="font-size: 14px !important">
+          <h3 style="font-size: 16px !important">Clients
+            <span style="font-size: 16px !important" >({{ team.clients.length }})</span>
           </h3>
         </div>
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-12" style="width: 950px !important;" >
+        <div class="col-md-11">
           <div class="row">
-
-            <LoadingBar v-if="loading && team.length"/>
-            <FetchError v-else-if="error">{{ error }}</FetchError>
-
-
-            <NoMember v-else-if="!team || !team.length && !loading">
-              No team member found
+            <NoMember v-if="!team.clients || !team.clients.length && !loading">
+              No Clients found
           </NoMember>
 
-            <div v-else v-for="(member, index) in team" :key="index" class="col-md-4"  style="padding-bottom: 20px;">
-        <MemberCard :member="member" :people="true"></MemberCard>
+            <div v-else v-for="(member, index) in team.clients" :key="index" class="col-md-4"  style="padding-bottom: 20px;">
+              <MemberCard :member="member" :people="true"></MemberCard>
             </div>
 
           </div>
@@ -45,7 +37,6 @@ export default {
     computed: {
         ...mapGetters('team', [
           'team',
-          'denied',
         'loading',
         'error',
       ]),
@@ -53,8 +44,7 @@ export default {
 
     },
     mounted(){
-      // this.fetchTeam();
-      this.accessDenied();
+      
     },
 
     // created: {
@@ -68,11 +58,6 @@ export default {
           ...mapActions('userCredentials', [
         'callWithToken',
       ]),
-    
-      accessDenied(){
-        console.log(this.denied);
-      }
-
     }
 
 };

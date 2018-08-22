@@ -1,266 +1,431 @@
 <template>
-  <span>
-    <div class="containerrr">
-
-
-
-     <div class="row">
-       <div class="col-md-10" >
-           <h3 class="projects-overview-title">Category</h3>
-       </div>
-       <div class="col-md-2" align="right" >
-           <AuthenticatedField v-show="check_permission('manageCategory')">
-            <div class="create-new-category">
-              <i class="ion-android-add" @click.stop="openAddCategory"></i>
-            </div>
-          </AuthenticatedField>
-       </div>
-       <div class="col-md-10 ">
-          <div class="row">
-
-              <LoadingBar v-if="loading"/>
-              <FetchError v-else-if="error">{{ error }}</FetchError>
-
-              <h3 v-else-if="!categories || !categories.length && !loading"
-                  class="text-center no-projects"
-                  style="margin-top: 100px;" >
-                  <i class="icon ion-ios-list-outline"></i>
-                  <br/>No categories.
-              </h3>
-
-            <div class="col-md-4" v-else v-for="(category, index) in categories" :key="index">
-              <div class="well categorized-well">
-                <h3>{{ category.category_name }}</h3>
-                <p class="shill">Skills</p>
-                <small class="theskills" >
-                    HTML, CSS, Javascript
-                </small>
-                <!--<p>{{ catDate(category) | savageMoment("calendar", 'Do MMMM YYYY') }}</p>-->
-                <p class="text-right" style="margin-top: +30px !important;margin-bottom: 20px !important; color: #4a4a4a !important;">
-                    <el-tooltip class="item" effect="light" content="View Category" placement="bottom">
-                  <i class="icon-i ion-ios-eye-outline" @click="openViewCategory(category)"></i>
-                </el-tooltip>
-                  <AuthenticatedField :pm="true">
-                      <el-tooltip class="item" effect="light" content="Edit Category" placement="bottom">
-                    <i class="icon-i ion-edit" @click="editCategory(category)"></i>
-                  </el-tooltip>
-                    <el-tooltip class="item" effect="light" content="Delete category" placement="bottom">
-                    <i class="icon-i ion-ios-trash-outline"  @click.stop="removeCategory(category.Id, index)"></i>
-                  </el-tooltip>
-                  </AuthenticatedField>
-                </p>
+  <section class="content-body">
+    <div class="row">
+      <ul class="nav-ul">
+        <li>
+          <a href="#" @click.prevent="switchTab(1)" :class="{'active': tab===1}">Existing Staff</a>
+          <div :class="{'rectangle-3-copy': tab === 1}">
 
               </div>
-            </div>
+          </li>
+          <li>
+          <a href="#" @click.prevent="switchTab(2)" :class="{'active': tab===2}">Pending Invites</a>
+          <div :class="{'rectangle-3-copy': tab === 2}">
 
-      </div>
-       </div>
-     </div>
-
+              </div>
+          </li>
+      </ul>
+      <hr style="position: relative; top: -34px; left: -20px; width: 90%;">
     </div>
-    <CategoryModal :show.sync="showAddCategoryModal" :selectedCategory="activeCategory"  @closeAddCategory="closeAddCategory" @reloadStore="reloadStore">
-    </CategoryModal>
-    <ViewCategoryModal :show.sync="showCategoryModal" :category="activeCategory" @close="closeViewCategory">
-    </ViewCategoryModal>
-  </span>
+    
+    <div >
+      <div v-if="tab === 1">
+        <ClientTeam @reloadStore="reloadStore"/>
+      </div>
+
+      <div v-if="tab === 2">
+        <!-- <PendingInvites @reloadStore="reloadStore"/> -->
+      </div>
+    </div>
+    <Loading :show="loader"/>
+  </section>
 
 </template>
 
 <script>
- import CategoryModal from './modals/createCategory';
- import ViewCategoryModal from './modals/ViewCategory';
- import { mapGetters, mapActions } from "vuex";
+  import { mapGetters, mapActions, mapMutations } from "vuex";
+  import ClientTeam from './staff';
+  import PendingInvites from './pendingStaff';
+  import HireModal from './modals/HireModal';
+  import Nav from "@/app/shared/teamNav";
 
 export default {
- name: "category",
- components: {
-   CategoryModal,
-   ViewCategoryModal,
-  },
-  data(){
-    return{
-      showAddCategoryModal: false,
-      showCategoryModal: false,
-      activeCategory: {}}
-  },
-  mounted () {
-      this.callWithToken({
-        parameters: {
-          teamId: this.user.team_Id, // clients team id
-        },
-        action: this.getCategories,
-      });
-  },
-  destroyed () {
-    this.$_$destroyedHook(['remResetState'])
-  },
-  computed: {
-    // mix the getters into computed with object spread operator
-    ...mapGetters('categories', [
-      'categories',
-      'loading',
-      'error'
-    ]),
-      ...mapGetters('userCredentials', [
-          'user','permissions'
-      ]),
-    ...mapGetters('categories/remove', {
-      deleteLoading: 'loading',
-    }),
-  },
-  methods: {
-    ...mapActions('categories', [
-      'getCategories',
-      'resetState'
-    ]),
-    ...mapActions('categories/remove', {
-      deleteCategory: 'deleteCategory',
-      remResetState:  'resetState',
-    }),
-    ...mapActions('userCredentials', [
-      'callWithToken',
-    ]),
-      catDate (cat) {
-          let date = new Date(parseInt(cat.created_time))
-          return date
-      },
-     openAddCategory() {
-            this.activeCategory = null;
-            this.showAddCategoryModal = true;
-        },
-      closeAddCategory() {
-          this.showAddCategoryModal = false;
-      },
-      openViewCategory(category) {
-        this.activeCategory = category;
-        this.showCategoryModal = true;
-      },
-      editCategory(category){
-        category.name=category.category_name;
-        this.activeCategory = category;
-        debugger;
-        // console.log("category selected",category);
-        this.showAddCategoryModal=true;
-      },
-      closeViewCategory() {
-        this.showCategoryModal = false;
-      },
-      check_permission(rule){
-      var state = false;
-      this.permissions.forEach((perm)=>{
-        if(perm.Permission === rule){
-          state = true;
-        }
-      })
-      return state;
+    name: "client-people",
+    components: {
+      ClientTeam,
+      PendingInvites,
+      HireModal,
+      Nav,
     },
-      removeCategory (id, index) {
-        const functionArgs = {
-            id: id, // id
-            index: index, // index in array
-          }
-        const self = this;
+    // watch:{
+    //   team_Id(){
+    //     if(this.team_Id){
+    //       this.fetchTeam()
+    //     }
+    //   }
+    // },
+    mounted () {
+      this.fetchTeam();
+      // this.fetchInvites();
+      // this.handleTabClick()
+    },
+    data() {
+        return {
+          activeTabName: 'team',
+          showHireModal: false,
+          loader: false,
+          tab: 1,
+        }
+    },
+    // destroyed () {
+    //   this.$_$destroyedHook(['teamResetState'])
+    // },
+    // created() {
+    //   // this.getTeamId();
+    //   this.handleTabClick();
+    //   this.fetchTeam()
+    // },
+    computed: {
+      ...mapGetters('userCredentials', ['user',]),
+      ...mapGetters('team/getPendingInvites', ['team_Id']),
+      ...mapGetters('team', ['team',]),
+      routeId() {
+          //  console.log("route", this.$route.name)
+          return this.$route.params.id
+        },
+    },
+    methods: {
+        ...mapActions('team', [
+          'getClientTeam',
+        ]),
+        ...mapActions('team', {
+          teamResetState: 'resetState'
+        }),
+        ...mapActions('team/getPendingInvites', [
+          'getPendingInvites',
+          // 'getTeamByUserId',
+          'resetState'
+        ]),
+        ...mapActions('userCredentials', [
+          'callWithToken',
+        ]),
+        ...mapMutations('team', [
+          'setTeam',
+        ]),
+        // getTeamId(){
+        //   let args = {
+        //     Id : this.user.Id
+        //   }
+        //   let self = this;
+        //   this.getTeamByUserId(args)
+        //   .then(function(status) {
+        //     // self.fetchTeam()
 
-        this.$confirm('Are you sure you want to delete this category?', 'Warning', {
-          confirmButtonText: 'Yes, I\'m sure',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        })
-        .then(() => {
-            self.callWithToken({
-              parameters: functionArgs,
-              action: self.deleteCategory,
-            })
-            .then(function (status) {
-                if(status) {
-                    self.reloadStore('deleteCategory', id);
-                } else {
-                }
-            });
-        })
-        .catch(() => {});
-      },
+        //   });
+        //   return;
 
-      reloadStore (type, id) {
-          const args = {
-            teamId: this.user.team_Id, // clients team id
+        // },
+        handleTabClick(tab, event) {
+          if (tab.name === 'invites') {
+            this.fetchInvites();
+          } else if (tab.name === 'team') {
+            this.fetchTeam();
           }
+
+        },
+        switchTab(tab){
+          this.tab = tab;
+        },
+        openHire() {
+            this.showHireModal = true;
+        },
+        closeHire() {
+            this.showHireModal = false;
+        },
+        fetchTeam() {
+          // Get client team data
+          // debugger;
+          this.loader = true;
+            this.callWithToken({
+            parameters: {
+              id: this.user.team_Id, // clients team id
+              // id: this.user.Id, // clients team id
+            },
+            action: this.getClientTeam,
+          }).then(()=>{
+            this.loader = false;
+          });
+
+        },
+        
+        fetchInvites() {
+          // Get client pending invites data(
+
+          this.callWithToken({
+            parameters: {
+              id: this.user.Id, // clients team id
+            },
+            action: this.getPendingInvites,
+          });
+        },
+        reloadStore(type, id) {
+            // Reload pending invites and team
+          let args = {
+            id: this.user.Id,
+          }
+          // Reload Invites
           this.$_$cheekyReloadStore({
-              vm: this,
               type: type,
               authenticate: this.callWithToken,
               loadId: id,
-              reloadAction: this.getCategories,
+              reloadAction: this.getPendingInvites,
               reloadArgs: args
           })
-      },
-  }
-}
-</script>
-<style scoped="true">
-    .icon-i{
-        border-radius: 100% !important;
-        border: 1px solid #cfcccc;
-        padding: auto !important;
-        background: #fff;
+          // Reload Team
+          this.$_$cheekyReloadStore({
+              type: type,
+              authenticate: this.callWithToken,
+              loadId: id,
+              reloadAction: this.getClientTeam,
+              reloadArgs: args
+          })
+        }
     }
-h3.projects-overview-title {
-    margin-top: 6%;
-    margin-bottom: 3%;
-    color: #73a5d8;
+};
+</script>
+<style scoped>
+.empty-state {
+  padding-top: 5%;
 }
-.well.categorized-well h3{
+
+.output-image {
+  display: block;
+  margin-bottom: 13%;
+  margin-top: 13%;
+  text-align: -webkit-center;
+}
+
+.empty-state i {
+  font-size: 60px;
+}
+
+/*div#hireModal {
+  background: #00003b !important;
+  opacity: 1 !important;
+}*/
+
+.well.filter input {
+  margin-bottom: 7%;
+  color: white !important;
+  font-size: 12px;
+  transition: all 300ms ease-in-out;
+}
+
+.well.filter select {
+  margin-bottom: 7%;
+  color: white !important;
+}
+
+.well.filter input:focus {
+  transition: all 300ms ease-in-out;
+  margin-bottom: 7%;
+  color: #000 !important;
+  background: white;
+}
+
+.well.filter select:focus {
+  margin-bottom: 7%;
+  color: #000 !important;
+  background: white;
+}
+
+.filter {
+  background: #326ada;
+  margin-top: 13%;
+  color: white;
+  border-radius: 1px;
+  font-weight: 300 !important;
+  z-index: 1;
+  border: 0px solid white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.f-weight-3 {
+  font-weight: 300;
+}
+
+.f-weight-6 {
+  font-weight: 400;
+}
+
+.f-weight-7 {
+  font-weight: 500;
+}
+
+.hire-dev {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  width: 100% !important;
+  border: 1px solid transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0) !important;
+  border-radius: 1px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+}
+
+.filter-modal-btn {
+  background: transparent;
+}
+
+.nav-filter > li.active > a,
+.nav-filter > li.active > a:focus,
+.nav-filter > li.active > a:hover {
+  color: #fff;
+  background-color: #ffffff;
+  font-weight: 500;
+  border-bottom: 2px solid #326ada;
+  border-radius: 1px;
+  color: #000 !important;
+  font-size: 13px;
+}
+
+.nav-filter > li > a {
+  color: #fff !important;
+  font-weight: 600;
+  padding: 12px 21px !important;
+  font-size: 13px;
+  border-bottom: 2px solid #dee9f2;
+  border-radius: 1px;
+  margin-left: 11px;
+  color: #000 !important;
+}
+
+.nav-filter > li > a:hover {
+  color: #fff;
+  background-color: #ccc;
+  opacity: 0.7;
+  font-weight: 300;
+  font-size: 11px;
+}
+
+.invite-primary {
+  margin-top: 12%;
+  background: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.12);
+  height: 500px;
+  border-radius: 1px;
+}
+
+.invite-primary h3 {
+  color: #000;
+  font-weight: 100;
+}
+
+.invite-primary p {
+  color: #000;
+  font-size: 13px;
+  font-weight: 100;
+  font-family: raleway;
+  text-align: center;
+}
+
+.invite-primary input {
+  margin-bottom: 6%;
+  font-size: 14px;
+}
+
+.invite-primary button {
+  border-radius: 50px;
+  padding: 7px 45px;
+  font-size: 13px;
+}
+
+.invite-primary input[type="file"] {
+  padding: 1px;
+}
+
+span.btn-hire {
+    background: #3369da;
+    padding: 9px 14px;
+    /* min-width: 30% !important; */
+    text-align: center;
+    position: fixed;
     font-size: 18px;
-    color: #4a4a4a !important;
-}
-.well.categorized-well .shill{
-    height: 19px;
-    width: 50px;
-    color: #4A4A4A;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.12px;
-    line-height: 19px;
-    /*text-align: right;*/
-
-}
-.well.categorized-well .theskills{
-    color: #9B9B9B !important;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.12px;
-
-}
-.well.categorized-well i {
-    font-size: 20px;
-    padding: 0px 7px;
-    margin-top: +20px !importantss;
-    cursor: pointer;
-}
-.well.categorized-well {
-    width: 250px !important;
-    background: #fff !important;
-    box-shadow: 0 10px 30px 0 rgba(50,106,218,0.1);
-    border: none;
-    padding: 4px 27px;
-    border-radius: 3px;
-}
-.create-new-category {
-  /*position: fixed;*/
-  /*bottom: 5%;*/
-  /*right: 3%;*/
-  /*box-shadow: 0 2px 15px rgba(0,0,0,0.15);*/
-    margin-top: +45px !important;
-    margin-left: -65px !important;
-}
-
-.create-new-category i {
-    background: #FF346F;
-    box-shadow: 1px 10px 30px 0 rgba(255,52,111,0.2);
+    bottom: 6%;
+    right: 3%;
+    -webkit-box-shadow: 0 2px 15px rgba(0, 0, 0, 0.13);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.13);
+    color: white;
     border-radius: 50%;
-    padding: 11px 17px;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
+}
+
+.col-red {
+    color: #9c27b0 !important;
+    /* margin-top: 5%; */
+    text-align: left !important;
+    /* position: absolute; */
+    /* bottom: 20px; */
+    /* word-break: break-word; */
+    /* width: 420px; */
+    text-align: center !important;
+    margin: 3% 5%;
+}
+
+.modal-dialog.modal-lg {
+    width: 80%;
+    top: 9px;
+}
+
+.modal-dialog.modal-lg .modal-content.hire-dev {
+  border-radius: 1px !important;
+  box-shadow: none !important;
+  transition: all 120ms ease-in-out;
+}
+
+.well.filter {
+  border-radius: 10px !important;
+}
+
+.well.filter label {
+  color: white !important;
+}
+
+.input-file-csv {
+  opacity: 0;
+}
+
+span.input-file-csv-icn-group {
+  font-size: 35px;
+  position: relative;
+  top: 36px;
+  pointer-events: none;
+  cursor: pointer;
+}
+.com-son img{
+  height: 45px;
+  width: 45px;
+  margin-top: 7%;
+}
+.redsa{
+  z-index: 10000;
+}
+.nav-ul{
+  list-style-type: none;
+}
+.nav-ul li {
+    float: left;
+    padding: 20px;
+}
+
+.nav-ul li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #8C8989;
+}
+.rectangle-3-copy {
+  height: 30px;
+  width: 3px;
+  transform: rotate(-90deg);
+  border-radius: 100px 0 0 100px;
+  background: linear-gradient(180deg, #61A3EF 0%, #326ADA 100%);
+  margin: 0 auto 0 auto;
+}
+.active {
+  color: #000;
+  font-weight: bolder;
 }
 </style>

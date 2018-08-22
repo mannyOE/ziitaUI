@@ -25,31 +25,31 @@ export const projectTypes = {
 
 export const userTypes = {
     developer: {
-        slug: 'Developer',
-        id: '3',
+        slug: 'Company',
+        id: '1',
     },
     projectManager: {
-        slug: 'Project Manager',
-        id: '2',
+        slug: 'Staff',
+        id: '3',
     },
     client: {
         slug: 'Client',
-        id: '1',
+        id: '2',
     },
 }
 
 export const userTypesArray = [
     {
         value: '3',
-        name: 'Developer',
+        name: 'Staff',
     },
     {
         value: '2',
-        name: 'Project Manager',
+        name: 'Client',
     },
     {
         value: '1',
-        name: 'Client',
+        name: 'Company',
     },
 ]
 

@@ -98,13 +98,13 @@
               </button>
 
               <LoadingButton v-else style="margin-top:29px; background: none !important;" buttonclass="btn  btn-started">SIGNING IN...</LoadingButton>
-            </div>
-        <!--     <div class="auth-footer">
+            </div><br><br>
+            <div class="auth-footer">
               <span>Forgot Password?
                 <router-link :to="{ name: 'forgot' }">Reset Password</router-link>
               </span>
               <div class="clearfix"></div>
-            </div> -->
+            </div>
           </form>
         <!-- </div> -->
       </div>
@@ -189,6 +189,7 @@ export default {
         },
 
         validateBeforeSubmit() {
+          var self = this;
           this.show_confirmation_link = false;
           // this.$show_notification("showk d fsd", "error")
             this.$validator.validateAll().then(result => {
@@ -203,40 +204,21 @@ export default {
                     const self = this;
                     this.login(args)
                     .then(function (status) {
-
-                        if (status.state === true) {
-
-                            self.user.password = "";
-
-                            if(status.data.status)
-                                self.user.email = "";
-
-                            if (self.checkBack()) {
-                                self.redirectBack()
-                            } else if (status.data.type == 2){
-                                self.redirectHome(status.userType)
-                            } else if (status.data.type == 3){
-                              self.$show_notification(status.data.message);
-                            } else {
-
-                               if(status.data.userStatus && status.data.status){
-                                self.redirectHome(status.userType)
-                                return;
-                                }
-                              self.$show_notification(status.data.message, status.data.status?"success":"error", 10000);
-                              if(status.data.userStatus == 1)
-                                self.show_confirmation_link = true;
-                            }
-                        } else if (status.state === false) {
-
-                          // BannerError will handle error
-                          var error = self.autherror || self.error
-                          self.$show_notification(error, "error")
-
+                        if(status.state){
+                          if(status.type == 1 || status.type == 3){
+                            // open company dashboard
+                            self.$router.push({name: 'projects'})
+                          }else{
+                            // open client portal
+                            self.$router.push({name: 'portal'})
+                          }
+                        }else{
+                          self.$show_notification("Login Failed");
                         }
                     });
                     return;
                 }
+                
             });
         },
     },

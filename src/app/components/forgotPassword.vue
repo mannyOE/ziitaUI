@@ -4,18 +4,12 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4 well loginwell">
-        <div class="auth-header">
-          <img :src="require('@/assets/img/zeedas-png.png')" alt="Zeedas" width="100px" height="100px" class="login-signup-logo" />
+        <div class="auth-header text-center">
+          <!-- <img :src="require('@/assets/img/zeedas-png.png')" alt="Zeedas" width="100px" height="100px" class="login-signup-logo" /> -->
           <h4 class="title">Forgot Password</h4>
           <span class="sub-title">I Know My Password Already
             <router-link :to="{ name: 'login' }">Login</router-link>
           </span>
-          <router-link :to="{ name: 'signup' }">
-            <div class="sign-up-add-btn">
-              <i class="icons ion-android-add"></i>
-            </div>
-          </router-link>
-
         </div>
         <div class="spacer">
           <div class="space"></div>
@@ -198,5 +192,12 @@ export default {
     box-shadow: 0 2px 15px rgba(0,0,0,0.16);
     border-radius: 50%;
     padding: 12px 21px;
+}
+.loginwell {
+    padding: 25px;
+    border: 1px solid #3369da;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.16);
+    border-radius: 5px;
+    margin-top: 150px;
 }
 </style>

@@ -71,6 +71,9 @@ const router = new Router({
       path: '/confirmation_sent/:sent',
       name: 'confirmation_sent',
       component: Confirmation_sent,
+      props: (route) => ({
+        resendTo: route.query.resendTo,
+      })
     },
     {
       path: '/confirmation_sent',
@@ -112,37 +115,26 @@ const router = new Router({
 
     // Authenticated Routes
     {
-      path: '/superuser',
-      redirect: '/superuser/dashboard',
+      path: '/company',
+      redirect: '/company/dashboard',
       component: PlainLayout,
       meta: { requiresAuth: true },
       children: [
         {
-          path: "confirm_hire",
-          name: "confirm-hire",
-          component: ConfirmHire,
-          props: (route) => ({
-            teamId: route.query.teamId,
-            userId: route.query.userId,
-            type: route.query.type,
-          })
-        },
-        {
           path: 'dashboard',
-          redirect: '/superuser/dashboard/clients',
           components: {
             default: DashboardLayout,
           },
           children: [
             {
-              path: "clients",
+              path: "",
               name: "projects",
               component: Projects
             },
 
             {
-              path: "team",
-              name: "clientteam",
+              path: "clients",
+              name: "clients",
               component: ClientPeople,
             },
               {
@@ -161,8 +153,8 @@ const router = new Router({
               component: Projects,
             },
             {
-              path: "category",
-              name: "category",
+              path: "staff",
+              name: "staff",
               component: Category,
             },
             {

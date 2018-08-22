@@ -1,74 +1,119 @@
 <template>
 	<div class="sidebar-dashboard">
-		<div class="row">
+		<div class="row" style="margin-right: 35px;">
 			<div class="col-md-3" style="padding-top: 40px;">
 				<div class="heading">Quick Statistics</div>
 			</div>
 			<div class="col-md-3 pull-right people stats-card">
 				<div class="col-md-6" style="margin-top: +12px;">
 					<span class="stats-title">Active Clients</span>
-					<p class="stats-val">{{stats.completed}} Nos</p>
+					<p class="stats-val">{{stats.clients}} Nos</p>
 				</div>
-				<div class="stats-icon fa-2x col-md-4 img-rounded text-center pull-right" >
-					<i class="ion-connection-bars" style="margin-left: -2px;margin-top: +10px !important;"></i>
+				<div class="stats-icon fa-2x col-md-4 img-rounded text-center pull-right" @click="invite('2')">
+					<i class="fa fa-plus" style="margin-left: -2px;margin-top: +5px !important;"></i>
 				</div>
 			</div>
 			
 			<div class="col-md-3 pull-right people stats-card">
 				<div class="col-md-6" style="margin-top: +12px;">
 					<span class="stats-title">Your Staff</span>
-					<p class="stats-val">{{stats.people}} Nos</p>
+					<p class="stats-val">{{stats.staff}} Nos</p>
 				</div>
-				<div class=" stats-icon  fa-2x col-md-4 img-rounded text-center pull-right" >
-					<i class="ion-person-stalker" style="margin-left: -5px;margin-top: +10px !important;"></i>
+				<div class=" stats-icon  fa-2x col-md-4 img-rounded text-center pull-right" @click="invite('3')">
+					<i class="fa fa-plus" style="margin-left: -5px;margin-top: +5px !important;"></i>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div style="padding-right: 30px; margin-top: 30px;" CLASS="col-md-12">
-				<span class="heading">CLIENTS</span>
-				<el-tooltip class="pull-right" effect="dark" content="Add a new Client" placement="left">
-				<a class="btn btn-lg btn-circle" data-intro="Add a New Client"
-				data-tooltipClass="Add New Client" @click.stop="openNewProject">
-						<i class="ion-plus"></i>
-				</a>
-			</el-tooltip>
-			<p class="pull-right new-project" style="margin-top: 10px; margin-right: 15px;">NEW CLIENT</p>
-			 </div>
+		<div class="row" style="margin-top: 20px;">
+      <div class="col-lg-12 col-md-12 col-xs-12">
 
+
+        <!-- tasks -->
+       <div class="col-md-3 people task-card" style="margin-left: 40px;">
+        <div class="col-md-12" style="margin-top: +12px;">
+          <div class="header">Tasks Overview</div>
+          <div class="col-md-12 clearfix" style="margin-left: 40px;">
+                <div class="c100 blue" :class="'p40'">
+                    <span>45%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+          </div>
+          <div class="row text-center">
+            <label class="label label-success">Completed</label>
+          </div>
+          <div class="row">
+            <button class="btn all-btn">Add Task</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- mail box -->
+        <div class="col-md-3 people task-card">
+        <div class="col-md-12" style="margin-top: +12px;">
+          <div class="header">Mailbox</div>
+        </div>
+      </div>
+
+
+
+      <!-- upcoming evemts -->
+        <div class="col-md-3 people task-card">
+        <div class="col-md-12" style="margin-top: +12px;">
+          <div class="header">Upcoming Deadlines</div>
+        </div>
+
+         <div class="row">
+            <button class="btn all-btn">View All Tasks</button>
+          </div>
+      </div>
+
+
+
+      </div>
 		</div>
-		<div class="row" style="margin-top: 10px;">
 
-			<div class="col-md-4" style="margin-top: 10px" v-for="(project, index) in projects">
-			<ProjectCard  @assign="openAssignPM"
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-lg-12 col-md-12 col-xs-12">
 
-			@overview="goOverview" @delete="removeProject" :index="index" :key="index" 
-      :clienTeam="all_team" :project="project"/>
-			</div>
-		</div>
-	      <NewProjectModal :show.sync="showNewProject" @close="closeNewProject"></NewProjectModal>
-	  <ChooseMemberModal
-	  :developer="{'status':false,'team':pTeam}"
-	   :show.sync="showAssignPM" @close="closeAssignPM" :projectId="activeId"/>
-     <Loading :show="loader"/>
+
+        <!-- tasks -->
+       <div class="col-md-3 people chart-card" style="margin-left: 40px;">
+        <div class="col-md-12" style="margin-top: +12px;">
+          <div class="header">Earnings</div>
+          <growthChart :chart-data.sync="fillData" :width="200" :height="35"/>
+        </div>
+      </div>
+
+      </div>
+    </div>
+     <Loading :show="!loader"/>
+     <inviteForm :show="showInvite" @close="showInvite = false" :inviteDetail="invites"/>
 
 	</div>
 </template>
 
 <script>
-import NewProjectModal from './modals/newProject'
 import ChooseMemberModal from "@/app/shared/modals/chooseMemberModal";
-import ProjectCard from "@/app/shared/cards/projectCard";
 import { mapGetters, mapActions } from "vuex";
 import VueSocketio from 'vue-socket.io';
+import { FullCalendar } from 'vue-full-calendar'
+import growthChart from '@/app/shared/charts/growth.js';
+import inviteForm from '@/app/shared/modals/sendInvite';
+
 
 export default {
   name: 'Projects',
   props: ['id'],
   components: {
      ChooseMemberModal,
-      NewProjectModal,
-      ProjectCard
+      FullCalendar,
+      growthChart,
+      inviteForm
   },
   data() {
       return {
@@ -82,30 +127,19 @@ export default {
           activeTab: true,
           completedTab: false,
           showNewProject:false,
-          pTeam:[]
+          pTeam:[],
+          chartData: {
+              labels: ['January', 'February', 'March', 'April','May','JJune','July','August','September'],
+            },
+          invites: {
+            type: null,
+            Email: null,
+          },
+          showInvite: false,
       };
   },
   mounted () {
     this.loader = true;
-    var self = this;
-      this.callWithToken({
-        parameters: {
-          id: self.user.Id, // clients team id
-        },
-        action: self.getProjects,
-
-      });
-    this.callWithToken({
-        parameters: {
-            id: this.user.team_Id, // project id
-        },
-        action: this.getClientTeam,
-    }).then(()=>{
-      this.loader = false;
-    });
-
-
-
   },
   created(){
      // this.$socket.emit('init', {user_id: this.user.Id});
@@ -152,6 +186,22 @@ export default {
           'user',
           'permissions'
       ]),
+      fillData () {
+       var dc= {
+         labels: this.chartData.labels,
+         datasets: [
+           {
+             backgroundColor: [
+                '#FFFFFF',
+              ],
+              borderColor: 'red',
+             data: [2,5,87,22,109,86,99,102]
+           },
+
+         ]
+       };
+       return dc;
+     },
     ...mapGetters('projects/remove', {
       deleteLoading: 'loading',
     }),
@@ -173,6 +223,11 @@ export default {
        description=description.substring(0,max-4)+" ...";
       }
       return description;
+    },
+
+    invite(type){
+     this.invites.type = type;
+      this.showInvite = true;
     },
 
     ...mapActions('team/getProjects', [
@@ -204,6 +259,10 @@ export default {
       // alert("helloe")
         this.activeTab = false
         this.completedTab = true
+    },
+    day_click(date, jsEvent, view){
+      console.log(this.$format_time(date)+'\n'+jsEvent.pageX+'\n'+view.name);
+      
     },
     goOverview(id){
       
@@ -306,6 +365,7 @@ export default {
 </script>
 
 <style type="text/css" scoped>
+ @import '~fullcalendar/dist/fullcalendar.css';
 .people{
 	background: #ffffff;
 	border-radius: 5px;
@@ -357,6 +417,7 @@ export default {
 	background: linear-gradient(230.58deg, #61A3EF 0%, #326ADA 100%);
 	margin-top: 10px;
 	margin-left: -20px;
+  cursor: pointer;
 	/*padding: 8px;*/
 }
 /*.stats-icon i{*/
@@ -390,6 +451,17 @@ export default {
 	margin-right: 10px;
 	text-align: left;
 }
+
+.task-card {
+  height: 340px;
+  width: 280px;
+  margin-right: 20px;
+}
+.chart-card {
+  height: 250px;
+  width: 92%; 
+  margin-bottom: 30px;
+}
 .projects-card {
 	height: 265px;
 	width: 28%;
@@ -402,6 +474,28 @@ export default {
 	margin: 5px 30px 5px 20px;
 	width: 80%;
 	height: auto;
+}
+.all-btn {
+  background: linear-gradient(230.58deg, #61A3EF 0%, #326ADA 100%);
+  font-size: 12px;
+  color: #fff;
+  margin: 30px auto;
+  position: relative;left: 90px;bottom: 0px;
+  border: 2px solid #fff;
+}
+.header {
+  text-transform: uppercase;
+  color: #fff;
+  /*font-family: "Montserrat";*/
+  font-size: 12px;
+  background: linear-gradient(230.58deg, #61A3EF 0%, #326ADA 100%);
+  height: 35px;
+  padding-top: 8px;
+  line-height: 55px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 17px; 
+  margin-bottom: 35px;
 }
 .heading {
 	text-transform: uppercase;

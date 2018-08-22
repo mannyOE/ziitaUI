@@ -30,12 +30,9 @@ const actions = {
   login ({ dispatch, commit, state }, args) {
 
     commit('loading');
-
     return api.login(args)
     .then(function (result) {
-      if (result.error === undefined) {
-        // Logged in successfully
-        commit('clearErrors');
+      commit('clearErrors');
         commit('resetState');
 
         // Log the previously logged in user out
@@ -44,69 +41,35 @@ const actions = {
           // Logged out
         });
 
-        // save user's permission
-        dispatch('userCredentials/setPermissions', result.data.dis_user, {root: true})
-        .then(function (status) {
-          // User is set
-        });
-
-        // set Blocked state
-        dispatch('userCredentials/setBlocked', result.data.blocked, {root: true})
-        .then(function (status) {
-          // User is set
-        });
-
-
-        // Get data from response
-        const token = result.token;
-        const userType = result.userType;
-        const stateData = {
-          state: true,
-          data: result.data,
-          userType: userType,
-        };
-
-        if(result.data && result.data.status) {
-          // Set token in 'user' state
-          dispatch('userCredentials/setToken', token, {root: true})
+      if(result.status){
+        // set token
+        // debugger;
+        dispatch('userCredentials/setToken', result.token, {root: true})
               .then(function (status) {
                 // Token is set
               });
 
           // Set authentication in 'user' state
-          dispatch('userCredentials/setAuthenticated', userType, {root: true})
+          dispatch('userCredentials/setAuthenticated', result.type, {root: true})
               .then(function (status) {
                 // Auth is set
               });
-        }
 
-        // Get User
-        return dispatch('auth/getUser', { token: token }, {root: true})
-        .then(status => {
-            commit('notLoading');
-            return stateData;
-        });
-
-      } else {
-        // Login attempt failed
-        commit('clearErrors');
-        commit('resetState');
-
-        let stateData = {
-          state: false,
-          data: result
-        };
-
-        if (result.autherror) {
-          // Set that login failed due to bad credentials
-          commit('isAuthError');
-        }
-        commit('setError', result.error);
-
-        commit('notLoading');
-        return stateData;
+            // Get User
+          return dispatch('auth/getUser', { token: result.token }, {root: true})
+          .then(status => {
+              commit('notLoading');
+              status.state = true;
+              return status;
+          });
+      }else{
+        commit('setError', result.message);
+        var df = {};
+        df.data = result;
+        df.state = false;
+        return df;
       }
-    })
+    });
   },
 
   resend_confirmation ({ dispatch, commit, state }, args) {
@@ -115,8 +78,7 @@ const actions = {
 
     return api.resend_confirmation(args)
     .then(function (result) {
-
-          return result;
+      return result;
     })
   },
   confirm_email({ dispatch, commit, state }, args) {
@@ -147,7 +109,7 @@ const actions = {
         });
 
         commit('notLoading');
-        return true;
+        return user;
       } else {
         // Failed to get user
         commit('clearErrors');

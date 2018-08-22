@@ -3,7 +3,7 @@
     <div class="row">
       <ul class="nav-ul">
         <li>
-          <a href="#" @click.prevent="switchTab(1)" :class="{'active': tab===1}">Staff Members</a>
+          <a href="#" @click.prevent="switchTab(1)" :class="{'active': tab===1}">Existing Clients</a>
           <div :class="{'rectangle-3-copy': tab === 1}">
 
               </div>
@@ -24,22 +24,9 @@
       </div>
 
       <div v-if="tab === 2">
-        <PendingInvites @reloadStore="reloadStore"/>
+        <!-- <PendingInvites @reloadStore="reloadStore"/> -->
       </div>
     </div>
-
-    <AuthenticatedField>
-
-      <div class="col-md-6" @click="openHire">
-        <div class="pull-right">
-          <span class="btn-hire">
-            <i class="ion-plus"></i>
-          </span>
-        </div>
-
-      </div>
-      <HireModal @reloadStore="reloadStore" :show.sync="showHireModal" @close="closeHire"/>
-    </AuthenticatedField>
     <Loading :show="loader"/>
   </section>
 
@@ -140,7 +127,7 @@ export default {
           this.tab = tab;
         },
         openHire() {
-            // this.showHireModal = true;
+            this.showHireModal = true;
         },
         closeHire() {
             this.showHireModal = false;

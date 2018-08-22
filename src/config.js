@@ -8,20 +8,20 @@ var port = '';
 //port = 8002; //live
 var hostname = location.hostname;
 hostname = hostname.toLowerCase();
+port = 2300;
 //sdsds
-var protocol = hostname !== "localhost.com"?"https://":"http://";
+// var protocol = "";
 
-if(hostname == "zeedas.com" || hostname == "www.zeedas.com"){
-    port = 8002;
-}else if(hostname == "demo.zeedas.com"){
-    port = 8001;
-}else{
+// if(hostname == "18.221.93.144"){
+//     port = 3000;
+//     protocol = "http://";
+// }else{
+//     protocol = "http://";
+//     hostname = "localhost";
+//     port = 3000;
+// }
 
-    hostname = "localhost";
-    port = 3000;
-}
-
- export const API = protocol+hostname+":"+port+"/";
+ export const API = 'http://'+hostname+":"+port+"/";
 
  // export const API = "https://"+hostname+":"+port+"/";
 // export const API = "http://localhost:"+port+"/";

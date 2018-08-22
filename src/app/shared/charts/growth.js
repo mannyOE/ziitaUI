@@ -13,15 +13,15 @@ export default {
         scales: {
            xAxes: [{
                ticks: {
-                   display: false
+                   display: true
                },
-               gridLines: { display:false, drawBorder: false }
+               gridLines: { display:true, drawBorder: false }
            }],
            yAxes: [{
                ticks: {
                    display: false
                },
-               gridLines: { display:false, drawBorder: false }
+               gridLines: { display:true, drawBorder: false }
            }]
        },
        lineColor: 'black',
