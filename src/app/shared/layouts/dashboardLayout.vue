@@ -23,7 +23,6 @@
 import { mapGetters, mapActions } from 'vuex';
 import BaseNavbar from '@/app/shared/BaseNavbar';
 import sidebar from '@/app/updated/sidebar';
-import mainBoard from '@/app/updated/main_board';
 import topbar from '@/app/updated/dashtop';
 
 export default {
@@ -31,7 +30,6 @@ export default {
     components: {
         BaseNavbar,
         sidebar,
-        mainBoard,
         topbar
     },
 }

@@ -4,17 +4,9 @@ import Router from 'vue-router'
 
 import ProfileLayout from '@/app/shared/layouts/ProfileLayout';
 import Profile from '@/app/components/profileStructure/Profile';
-import Reviews from '@/app/components/profileStructure/Reviews';
-import Wallet  from '@/app/components/clientDashboard/wallet/paywallet';
-import Settings  from '@/app/components/clientDashboard/settings';
-import Permissions  from '@/app/shared/modals/permissions';
-import FundWallet  from '@/app/components/clientDashboard/wallet/addcard';
-import ManageAccount from '@/app/components/profileStructure/ManageAccount';
-import Organisation from '@/app/components/profileStructure/Organisation';
 
 import HomePage from "@/app/components/index";
 import SignUp from "@/app/components/SignUp";
-import Download from "@/app/components/download";
 import Login from '@/app/components/Login';
 import Confirmation_sent from '@/app/components/Confirmation_sent';
 import Confirm_email from '@/app/components/Confirm_email';
@@ -22,25 +14,22 @@ import NewPassword from '@/app/components/newPassword';
 import ForgotPassword from '@/app/components/forgotPassword';
 import DashboardLayout from '@/app/shared/layouts/DashboardLayout';
 import PlainLayout from '@/app/shared/layouts/PlainLayout';
-import Feedback from './../app/components/Feedback.vue';
 
 // Client Dashboard
 import ProjectLayout from '@/app/shared/layouts/ProjectLayout';
-import Projects from '@/app/components/projectsStructure/Projects';
-import Modules from '@/app/components/projectsStructure/modules/Modules';
-import ProjectOverview from '@/app/components/projectsStructure/overview/overview';
-import ProjectTeam from '@/app/components/projectsStructure/teams/ProjectTeam';
-import Activities from '@/app/components/projectsStructure/Activities';
-import FileShare from '@/app/components/projectsStructure/FileShare';
-import qualityAssurance from '@/app/components/projectsStructure/qa/qaDashboard';
-import ea from '@/app/components/projectsStructure/ea/eaDashboard';
 import ClientPeople from '@/app/components/clientDashboard/People/ClientPeople';
-import Developer from '@/app/components/clientDashboard/People/developer';
-import Category from '@/app/components/clientDashboard/People/Category';
-import Configuration from '@/app/components/clientDashboard/configuration/Configuration';
-import Configuration2 from '@/app/components/clientDashboard/configuration/config2Repo';
-import CreateProject from '@/app/components/projectsStructure/createproject/CreateProject';
+import ClientEnroll from '@/app/components/clientDashboard/People/enroll_clients';
 import ConfirmHire from '@/app/components/ConfirmHire';
+
+
+
+import Comms from '@/app/components/communications';
+
+import Reports from '@/app/components/reporting';
+
+import Billings from '@/app/components/billing';
+
+import Requests from '@/app/components/requests';
 // import HireTeam from '@/app/components/client-team/HireTeam';
 
 import store from '@/store'
@@ -84,11 +73,6 @@ const router = new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp,
-    },
-      {
-      path: '/download',
-      name: 'download',
-      component: Download,
     },
     {
       path: '/forgot',
@@ -137,20 +121,20 @@ const router = new Router({
               name: "clients",
               component: ClientPeople,
             },
-              {
-              path: "developer/stats/:id",
-              name: "developer",
-              component: Developer,
+            {
+              path: 'clients/enroll',
+              name: 'enroll-clients',
+              component: ClientEnroll,
             },
             {
-              path: "permissions",
-              name: "permissions",
-              component: Settings,
+              path: "communications-center",
+              name: "comms-center",
+              component: Comms,
             },
             {
-              path: 'projects/:active',
-              name: 'active',
-              component: Projects,
+              path: 'activity-reports',
+              name: 'reports',
+              component: Reports,
             },
             {
               path: "staff",
@@ -158,160 +142,17 @@ const router = new Router({
               component: Category,
             },
             {
-             path: "wallet",
-             name: 'wallet',
-             component: Wallet,
+             path: "billings",
+             name: 'billings',
+             component: Billings,
            },
            {
-            path: "wallet/fund",
-            name: 'fund-wallet',
-            component: FundWallet,
+            path: "client-requests",
+            name: 'requests',
+            component: Requests,
           },
-
-            {
-              path: "createproject",
-              name: "create-project",
-              component: CreateProject,
-
-            },
-
-            // {
-            //   path: "/team/hire",
-            //   name: "hire-team",
-            //   component: HireTeam,
-            //   props: {
-            //     view: 'team'
-            //   }
-            // }
           ]
         },
-
-
-        {
-          path: 'project/:id',
-          name: 'project',
-          redirect: '/user/project/:id/overview',
-          props: true,
-          component: ProjectLayout,
-          children: [
-            {
-              path: "overview",
-              name: "project-overview",
-              component: ProjectOverview,
-              props: true,
-            },
-            {
-              path: "modules",
-              name: "modules",
-              component: Modules,
-              props: true,
-            },
-            {
-              path: "team",
-              name: "project-team",
-              component: ProjectTeam,
-              props: true,
-            },
-            {
-              path: "files",
-              name: "share-files",
-              component: FileShare,
-            },
-            {
-              path: "quality-assurance",
-              name: "qa",
-              component: qualityAssurance,
-            },
-            {
-              path: "code-review",
-              name: "ea",
-              component: ea,
-            },
-            // {
-            //   path: "/:id/modules",
-            //   name: "modules",
-            //   // meta: {
-            //   //   clientId:
-            //   // },
-            //   component: ProjectModules,
-            //   params: 'id'
-            // },
-             {
-              path: "config",
-              name: "configuration",
-              component: Configuration,
-
-            },
-            {
-             path: "file-share",
-             name: "file-share",
-             component: FileShare,
-
-           },
-            {
-                path: "config2repo",
-                name: "configuration2",
-                component: Configuration2,
-              },
-            {
-              path: "activity",
-              name: "activity",
-              component: Activities,
-              props: true,
-            },
-            // {
-            //   path: "/:id/team/add-members",
-            //   name: "add:team:member",
-            //   params: 'id',
-            //   component: AddTeamMember,
-            // },
-          ]
-        },
-
-        {
-          path: 'profile',
-          // name: 'profile',
-          components: {
-            default: ProfileLayout
-          },
-          children: [{
-              path: '',
-              name: 'profile',
-              component: Profile
-            },
-
-            {
-              path: 'account',
-              name: 'manage-account',
-              component: ManageAccount
-
-            },
-            {
-              path: 'permissions',
-              name: 'perms',
-              component: Settings
-
-            },
-            {
-              path: 'permissions/:Id',
-              name: 'perms_single',
-              component: Permissions,
-              props: true,
-
-            },
-            {
-              path: 'reviews',
-              name: 'reviews',
-              component: Reviews,
-            },
-            {
-              path: 'organisation',
-              name: 'organisation',
-              component: Organisation,
-            }
-          ]
-        },
-
       ]
     },
   ]

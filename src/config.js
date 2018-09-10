@@ -33,7 +33,7 @@ console.log("Connecting API: "+ API);
 Vue.prototype.$API = API;
 
 // export var HOST = 'https://127.0.0.1:8080/#/';
-export var blackAxios = axios.create({
+Vue.prototype.blackAxios = axios.create({
   baseURL: API
 });
 

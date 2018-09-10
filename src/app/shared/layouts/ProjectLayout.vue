@@ -59,7 +59,6 @@ import { mapGetters, mapActions } from 'vuex';
 import ProjectNavbar from '@/app/shared/ProjectNavbar';
 import Breadcrumbs from '@/app/shared/projectBreadcrumbs';
 import sidebar from '@/app/updated/sidebar'
-import mainBoard from '@/app/updated/main_board'
 import topbar from '@/app/updated/dashtop'
 
 export default {

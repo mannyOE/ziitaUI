@@ -9,10 +9,12 @@
               </div>
           </li>
           <li>
-          <a href="#" @click.prevent="switchTab(2)" :class="{'active': tab===2}">Pending Invites</a>
-          <div :class="{'rectangle-3-copy': tab === 2}">
-
-              </div>
+          <el-tooltip content="Add Client" placement="bottom" effect="dark" >
+              <!-- content to trigger tooltip here -->
+              <button class="btn btn-sm btn-primary"  @click.prevent="$router.push({name:'enroll-clients'})" style="margin-top: -2px;">
+                <span class="fa fa-plus"></span>
+              </button>
+          </el-tooltip>
           </li>
       </ul>
       <hr style="position: relative; top: -34px; left: -20px; width: 90%;">
@@ -27,7 +29,6 @@
         <!-- <PendingInvites @reloadStore="reloadStore"/> -->
       </div>
     </div>
-    <Loading :show="loader"/>
   </section>
 
 </template>
@@ -37,7 +38,7 @@
   import ClientTeam from './ClientTeam';
   import PendingInvites from './PendingInvites';
   import HireModal from './modals/HireModal';
-  import Nav from "@/app/shared/teamNav";
+  import Navi from "@/app/shared/teamNav";
 
 export default {
     name: "client-people",
@@ -45,7 +46,7 @@ export default {
       ClientTeam,
       PendingInvites,
       HireModal,
-      Nav,
+      Navi,
     },
     // watch:{
     //   team_Id(){
@@ -126,7 +127,7 @@ export default {
         switchTab(tab){
           this.tab = tab;
         },
-        openHire() {
+        addClient() {
             this.showHireModal = true;
         },
         closeHire() {

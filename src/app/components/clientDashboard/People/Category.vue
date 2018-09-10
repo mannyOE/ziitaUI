@@ -14,6 +14,14 @@
 
               </div>
           </li>
+           <li>
+              <el-tooltip content="Add Staff" placement="bottom" effect="dark" >
+              <!-- content to trigger tooltip here -->
+              <button class="btn btn-sm btn-primary"  @click.prevent="invite('3')" style="margin-top: -2px;">
+                <span class="fa fa-plus"></span>
+              </button>
+          </el-tooltip>
+          </li>
       </ul>
       <hr style="position: relative; top: -34px; left: -20px; width: 90%;">
     </div>
@@ -27,7 +35,7 @@
         <!-- <PendingInvites @reloadStore="reloadStore"/> -->
       </div>
     </div>
-    <Loading :show="loader"/>
+   <inviteForm :show="showInvite" @close="showInvite = false" :inviteDetail="invites"/>
   </section>
 
 </template>
@@ -37,7 +45,9 @@
   import ClientTeam from './staff';
   import PendingInvites from './pendingStaff';
   import HireModal from './modals/HireModal';
-  import Nav from "@/app/shared/teamNav";
+  import Navi from "@/app/shared/teamNav";
+  import inviteForm from '@/app/shared/modals/sendInvite';
+
 
 export default {
     name: "client-people",
@@ -45,7 +55,8 @@ export default {
       ClientTeam,
       PendingInvites,
       HireModal,
-      Nav,
+      Navi,
+      inviteForm
     },
     // watch:{
     //   team_Id(){
@@ -65,6 +76,11 @@ export default {
           showHireModal: false,
           loader: false,
           tab: 1,
+          showInvite: false,
+          invites: {
+            type: null,
+            Email: null,
+          },
         }
     },
     // destroyed () {
@@ -96,6 +112,10 @@ export default {
           // 'getTeamByUserId',
           'resetState'
         ]),
+        invite(type){
+         this.invites.type = type;
+          this.showInvite = true;
+        },
         ...mapActions('userCredentials', [
           'callWithToken',
         ]),
@@ -146,6 +166,11 @@ export default {
             this.loader = false;
           });
 
+        },
+
+        invite(type){
+         this.invites.type = type;
+          this.showInvite = true;
         },
         
         fetchInvites() {

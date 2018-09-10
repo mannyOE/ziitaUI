@@ -23,21 +23,17 @@
 		</AuthenticatedField>
 
 			<AuthenticatedField>
-				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}">
+				<li :class="{'active': routeName === 'comms-center'}"><router-link :to="{name: 'comms-center'}">
 					<i class="ion-ios-albums-outline"></i>
-				<span class="link-title">Communication</span></router-link> </li>
+				<span class="link-title">Communication Center</span></router-link> </li>
 			</AuthenticatedField>
 			<AuthenticatedField>
-				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}"><i class="ion-ios-albums-outline"></i>
+				<li :class="{'active': routeName === 'reports'}"><router-link :to="{name: 'reports'}"><i class="ion-ios-albums-outline"></i>
 				<span class="link-title">Reporting</span></router-link> </li>
 			</AuthenticatedField>
 			<AuthenticatedField>
-				<li :class="{'active': routeName === 'wallet'}"><router-link :to="{name: 'wallet'}"><i class="ion-ios-albums-outline"></i>
-				<span class="link-title">Task Manager</span></router-link> </li>
-			</AuthenticatedField>
-			<AuthenticatedField>
-				<li :class="{'active': routeName === 'messaging'}"><router-link :to="{name: 'messaging'}"><i class="ion-ios-chatboxes-outline"></i>
-				<span class="link-title">Messaging</span></router-link> </li>
+				<li :class="{'active': routeName === 'requests'}"><router-link :to="{name: 'requests'}"><i class="ion-ios-albums-outline"></i>
+				<span class="link-title">Client Requests</span></router-link> </li>
 			</AuthenticatedField>
 
 			<AuthenticatedField>
