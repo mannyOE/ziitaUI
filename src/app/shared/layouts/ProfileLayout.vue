@@ -1,6 +1,5 @@
 <template>
 <span id="nav-links-holder">
-  <BaseNavbar/>
     <div class="container">
       <div class="row">
 
@@ -103,13 +102,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 // import { checkUser } from "@/utils";
-import BaseNavbar from '@/app/shared/BaseNavbar';
 import { API } from '../../../config';
 
 export default {
   name: "ProfileLayout",
   components: {
-        BaseNavbar,
     },
  data(){
         return {

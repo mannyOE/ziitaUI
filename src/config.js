@@ -37,6 +37,10 @@ Vue.prototype.blackAxios = axios.create({
   baseURL: API
 });
 
+export var blackAxios = axios.create({
+  baseURL: API
+});
+
 // module.exports = {
 //     API: API,
 //     blackAxios: defAxios,

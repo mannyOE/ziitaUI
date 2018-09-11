@@ -21,14 +21,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BaseNavbar from '@/app/shared/BaseNavbar';
 import sidebar from '@/app/updated/sidebar';
 import topbar from '@/app/updated/dashtop';
 
 export default {
     name: 'DashboardLayout',
     components: {
-        BaseNavbar,
         sidebar,
         topbar
     },

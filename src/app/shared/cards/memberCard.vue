@@ -17,20 +17,13 @@
      </div>
     </div>
 
-    <DeveloperModal @reloadStore="reloadStore" 
-        :member="member" 
-        :pending="pendingInvite" 
-        :project="project" 
-        :projectId="projectId" 
-        :show.sync="showDevModal" 
-        @close="closeDev"/>
+
   
     </div>
 </template>
 
 <script>
 import NoMember from "@/app/shared/NoMember";
-import DeveloperModal from "@/app/shared/modals/developerDetail";
 import { mapActions, mapGetters } from 'vuex';
 import { API } from '../../../config';
 
@@ -39,7 +32,6 @@ export default {
     props: ['member', 'pendingInvite', 'project','id','projectId','people'],
     components: {
       NoMember,
-      DeveloperModal,
     },
     data() {
         return {

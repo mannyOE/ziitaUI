@@ -1,18 +1,10 @@
-import BannerError from './shared/bannerError'
-import BannerSuccess from './shared/bannerSuccess'
-import FetchError from './shared/fetchError'
-import FieldError from './shared/fieldError'
 import NoContentError from './shared/noContentError'
 import LoadingBar from './shared/loading'
 import LoadingButton from './shared/loadingButton'
-import PlusButton from './shared/plusButton'
 import Modal from './shared/modal'
-import AuthenticatedField from './shared/authenticatedField'
 import MemberCard from './shared/cards/memberCard'
-import PermCard from './shared/cards/permissionCard'
 import HideField from './shared/hideField'
 import Notifications from 'vue-notification'
-import Blocked from './shared/blocked.vue'
 import PrettyCheckbox from 'pretty-checkbox-vue';
 import loading from '@/app/shared/loading';
 
@@ -55,19 +47,10 @@ import {
 
 const GlobalComponents = {
   install (Vue) {
-    Vue.component('BannerError', BannerError)
-    Vue.component('BannerSuccess', BannerSuccess)
-    Vue.component('FetchError', FetchError)
-    Vue.component('FieldError', FieldError)
-    Vue.component('NoContentError', NoContentError)
     Vue.component('LoadingBar', LoadingBar)
     Vue.component('LoadingButton', LoadingButton)
-    Vue.component('PlusButton', PlusButton)
-    Vue.component('AuthenticatedField', AuthenticatedField)
     Vue.component('MemberCard', MemberCard)
-    Vue.component('PermCard', PermCard)
     Vue.component('HideField', HideField)
-    Vue.component('BlockedAccount', Blocked)
     Vue.component('Loading', loading)
     Vue.use(PrettyCheckbox);
     // Vue.component('Spinners', Spinner)

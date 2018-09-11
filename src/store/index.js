@@ -7,20 +7,8 @@ import * as getters from './getters';
 
 // Store modules
 import auth from './modules/auth';
-import register from './modules/register';
-import projects from './modules/projects';
-import projectManager from './modules/projectManager';
-import team from './modules/team';
-import modules from './modules/modules';
 import users from './modules/users';
-import categories from './modules/categories';
-import chat from './modules/chat';
-import wallet from './modules/wallet';
 import forgotPassword from './forgotPassword';
-import feedback from './modules/feedback/feedback'
-import roles from './modules/roles/index'
-import qualityAssurance from './modules/qa/qualityAssurance'
-import ea from './modules/modules/ea/ea'
 // import socket from './modules/chat/socket';
 
 // Modules with persistent states

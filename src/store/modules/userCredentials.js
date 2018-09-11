@@ -1,5 +1,4 @@
 import { userTypes } from '@/constants';
-import api from '@/api/qa';
 
 // Remember to update resetState mutation
 const state = {
@@ -68,23 +67,7 @@ const actions = {
     return true;
   },
 
-  refreshPermissions ({ dispatch, commit, state }) {
-    // Loading
-
-    const token = state.sub.token;
-    return api.permsRefresh(token)
-    .then((result) => {
-      if (result.error === undefined) {
-
-        // Use response data
-
-        commit('setPermissions', result);
-        return true;
-      }
-
-
-    })
-  },
+  
 
 
 

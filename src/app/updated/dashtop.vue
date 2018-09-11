@@ -21,7 +21,6 @@
 import {
   mapGetters, mapActions
 } from 'vuex';
-import NewProjectModal from '@/app/components/projectsStructure/modals/newProject.vue'
 import Notifications from "../shared/HeaderNotifications";
 import profile from "../shared/profile";
 
@@ -32,7 +31,7 @@ export default {
   name: 'base-navbar',
     components: {
        // ChooseMemberModal,
-        NewProjectModal,
+        // NewProjectModal,
 				Notifications,
 				profile
     },

@@ -8,7 +8,6 @@
 <script>
 // import $ from 'jquery';
 // window.jQuery = $;
-import BaseHeader from '@/app/shared/BaseHeader';
 import ChatModal from '@/app/shared/chatWidget/chatWidget';
 import style from '@/assets/css/introjs.min.css'
 import VueSocketio from 'vue-socket.io';
@@ -23,7 +22,6 @@ export default {
 
 
   components: {
-    BaseHeader,
      ChatModal
   },mounted(){
      // alert()

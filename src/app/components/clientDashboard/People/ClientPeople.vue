@@ -38,7 +38,6 @@
   import ClientTeam from './ClientTeam';
   import PendingInvites from './PendingInvites';
   import HireModal from './modals/HireModal';
-  import Navi from "@/app/shared/teamNav";
 
 export default {
     name: "client-people",
@@ -46,7 +45,6 @@ export default {
       ClientTeam,
       PendingInvites,
       HireModal,
-      Navi,
     },
     // watch:{
     //   team_Id(){

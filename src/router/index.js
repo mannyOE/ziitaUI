@@ -3,7 +3,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import ProfileLayout from '@/app/shared/layouts/ProfileLayout';
-import Profile from '@/app/components/profileStructure/Profile';
 
 import HomePage from "@/app/components/index";
 import SignUp from "@/app/components/SignUp";
@@ -16,10 +15,8 @@ import DashboardLayout from '@/app/shared/layouts/DashboardLayout';
 import PlainLayout from '@/app/shared/layouts/PlainLayout';
 
 // Client Dashboard
-import ProjectLayout from '@/app/shared/layouts/ProjectLayout';
 import ClientPeople from '@/app/components/clientDashboard/People/ClientPeople';
 import ClientEnroll from '@/app/components/clientDashboard/People/enroll_clients';
-import ConfirmHire from '@/app/components/ConfirmHire';
 
 
 
