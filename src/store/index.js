@@ -31,22 +31,9 @@ export default new Vuex.Store({
   getters,
   modules: {
     auth,
-    register,
     userCredentials,
     persistentState,
-    projects,
-    projectManager,
-    team,
-    modules,
     users,
-    categories,
-    chat,
-    wallet,
     forgotPassword,
-    feedback,
-    roles,
-    qualityAssurance,
-    ea
-    // socket
   }
 });

@@ -19,7 +19,8 @@ import ClientPeople from '@/app/components/clientDashboard/People/ClientPeople';
 import ClientEnroll from '@/app/components/clientDashboard/People/enroll_clients';
 
 
-
+import Category from '@/app/components/communications';
+import Projects from '@/app/components/communications';
 import Comms from '@/app/components/communications';
 
 import Reports from '@/app/components/reporting';
